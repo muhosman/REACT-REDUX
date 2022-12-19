@@ -56,7 +56,7 @@ function Dropdown({ options, value, onChange, search, barValue }) {
   });
 
   return (
-    <div ref={divEl} className="w-48 relative">
+    <div ref={divEl} className="relative">
       <Panel
         className="flex transition-all duration-100 rounded-xl bg-gray-200 justify-between items-center cursor-pointer overflow-x-auto"
         onClick={handleClick}
@@ -65,14 +65,12 @@ function Dropdown({ options, value, onChange, search, barValue }) {
         <GoChevronDown className="text-lg" />
       </Panel>
       {isOpen && !search && (
-        <Panel className="absolute top-full overflow-x-auto">
-          {renderedOptions}
-        </Panel>
+        <Panel className="absolute overflow-x-auto">{renderedOptions}</Panel>
       )}
       {isOpen && search && (
-        <div className="absolute">
+        <div className="absolute w-full">
           <input
-            className="w-48 h-12 input border-gray-200 border-2 p-3"
+            className="h-12 input border-gray-200 border-2 p-3 w-full"
             value={inputFirm}
             onChange={(e) => {
               var lowerCase = e.target.value.toLowerCase();
@@ -80,7 +78,9 @@ function Dropdown({ options, value, onChange, search, barValue }) {
             }}
             onClick={() => setInputFirm("")}
           />
-          <Panel className="h-48 overflow-x-auto">{renderedOptions}</Panel>
+          <Panel className="absolute h-64 overflow-x-auto">
+            {renderedOptions}
+          </Panel>
         </div>
       )}
     </div>

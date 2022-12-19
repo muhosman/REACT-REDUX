@@ -35,7 +35,7 @@ function SortableTable(props) {
       ...column,
       header: () => (
         <th
-          className="cursor-pointer hover:bg-gray-100 px-5 py-4 border-b"
+          className="cursor-pointer hover:bg-gray-100 text-xs font-bold text-left px-6 py-3 border-b uppercase"
           onClick={() => handleClick(column.label)}
         >
           <div className="flex flex-row justify-center items-center">

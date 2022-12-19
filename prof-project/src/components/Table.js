@@ -7,7 +7,10 @@ function Table({ data, config, keyFn }) {
     }
 
     return (
-      <th className="text-center px-5 py-4 border-b" key={column.label}>
+      <th
+        className="text-xs font-bold text-center px-6 py-3 border-b uppercase"
+        key={column.label}
+      >
         {column.label}
       </th>
     );
@@ -16,8 +19,11 @@ function Table({ data, config, keyFn }) {
   const renderedRows = data.map((rowData) => {
     const renderedCells = config.map((column) => {
       return (
-        <td className="px-5 text-center border-b " key={column.label}>
-          <div className="">{column.render(rowData)}</div>
+        <td
+          className="text-center px-6 py-4 text-sm font-medium text-gray-800 whitespace-nowrap border-b "
+          key={column.label}
+        >
+          {column.render(rowData)}
         </td>
       );
     });
@@ -30,7 +36,7 @@ function Table({ data, config, keyFn }) {
   });
 
   return (
-    <table className=" table-auto w-full border-solid">
+    <table className=" min-w-full divide-y">
       <thead className="text-sm text-center px-5 py-4 border-b">
         <tr className="">{renderedHeaders}</tr>
       </thead>

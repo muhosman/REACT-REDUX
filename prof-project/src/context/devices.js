@@ -9,7 +9,6 @@ function DevicesProvider({ children }) {
   const fetchDevices = useCallback(async () => {
     const response = await axios.get("http://localhost:3005/devices");
     setDevices(response.data);
-    //console.log(response.data);
   }, []);
 
   const editDevicesById = async (id, newTitle) => {
@@ -40,8 +39,8 @@ function DevicesProvider({ children }) {
       title,
     });
 
-    const updatedBooks = [...devices, response.data];
-    setDevices(updatedBooks);
+    const updatedDevices = [...devices, response.data];
+    setDevices(updatedDevices);
   };
 
   const valueToShare = {

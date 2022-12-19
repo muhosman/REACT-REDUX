@@ -7,10 +7,9 @@ import {
 
 const PaginationBar = ({ devices, paginationNumber, setPaginationNumber }) => {
   var length = Math.round(devices.length / 10);
-  const arr = [];
+  var arr = [];
 
   if (devices.length > length * 10 && !(devices.length % 10 === 0)) length += 1;
-
   for (let i = 1; i < length + 1; i++) arr.push(i);
 
   const statement = arr.map((pagNumber) => {
@@ -33,18 +32,33 @@ const PaginationBar = ({ devices, paginationNumber, setPaginationNumber }) => {
     }
   });
   if (paginationNumber === 1) {
-    return (
-      <div className="flex items-center gap-2">
-        <div className="flex gap-1">{statement}</div>
-        <button onClick={() => setPaginationNumber(paginationNumber + 1)}>
-          <BiChevronRight />
-        </button>
-        <button onClick={() => setPaginationNumber(length)}>
-          <BiChevronsRight />
-        </button>
-      </div>
-    );
-  } else if (paginationNumber === length) {
+    if (statement.length == 0) {
+      return (
+        <div className="flex items-center gap-2">
+          <div className="flex gap-1">Bu bilgilerde bir cihaz bulunamadı.</div>
+        </div>
+      );
+    }
+    if (statement.length == 1) {
+      return (
+        <div className="flex items-center gap-2">
+          <div className="flex gap-1">{statement}</div>
+        </div>
+      );
+    } else {
+      return (
+        <div className="flex items-center gap-2">
+          <div className="flex gap-1">{statement}</div>
+          <button onClick={() => setPaginationNumber(paginationNumber + 1)}>
+            <BiChevronRight />
+          </button>
+          <button onClick={() => setPaginationNumber(length)}>
+            <BiChevronsRight />
+          </button>
+        </div>
+      );
+    }
+  } else if (paginationNumber === statement.length) {
     return (
       <div className="flex flex-row gap-2">
         <button onClick={() => setPaginationNumber(1)}>

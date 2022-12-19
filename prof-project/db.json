@@ -2,14 +2,14 @@
   "devices": [
     {
       "id": 1,
-      "deviceTypeId": 2,
+      "deviceTypeId": 4,
       "mill": true,
       "position": "",
       "carboy": true,
       "plastic": true,
       "firmId": 6,
       "firmName": "Bayın",
-      "ip": "sample string 8",
+      "ip": "154",
       "imei": "sample string 9",
       "gsmNo": "sample string 10",
       "serialNo": "43254325",
@@ -55,13 +55,13 @@
     },
     {
       "id": 1,
-      "deviceTypeId": 2,
+      "deviceTypeId": 3,
       "mill": true,
       "carboy": true,
       "plastic": true,
       "firmId": 6,
       "firmName": "Çikolata Fabrika",
-      "ip": "sample string 8",
+      "ip": "134",
       "imei": "sample string 9",
       "gsmNo": "sample string 10",
       "serialNo": "sample string 11",
@@ -81,7 +81,7 @@
     },
     {
       "id": 1,
-      "deviceTypeId": 2,
+      "deviceTypeId": 3,
       "mill": true,
       "carboy": true,
       "plastic": true,
@@ -107,7 +107,7 @@
     },
     {
       "id": 1,
-      "deviceTypeId": 2,
+      "deviceTypeId": 3,
       "mill": true,
       "carboy": true,
       "plastic": true,
@@ -133,7 +133,7 @@
     },
     {
       "id": 1,
-      "deviceTypeId": 2,
+      "deviceTypeId": 3,
       "mill": true,
       "carboy": true,
       "plastic": true,
@@ -159,7 +159,7 @@
     },
     {
       "id": 1,
-      "deviceTypeId": 2,
+      "deviceTypeId": 3,
       "mill": true,
       "position": "",
       "carboy": true,
@@ -186,7 +186,7 @@
     },
     {
       "id": 1,
-      "deviceTypeId": 2,
+      "deviceTypeId": 3,
       "mill": true,
       "carboy": true,
       "plastic": true,
@@ -212,7 +212,7 @@
     },
     {
       "id": 1,
-      "deviceTypeId": 2,
+      "deviceTypeId": 3,
       "mill": true,
       "carboy": true,
       "plastic": true,
@@ -238,7 +238,7 @@
     },
     {
       "id": 1,
-      "deviceTypeId": 2,
+      "deviceTypeId": 3,
       "mill": true,
       "carboy": true,
       "plastic": true,
@@ -264,7 +264,7 @@
     },
     {
       "id": 1,
-      "deviceTypeId": 2,
+      "deviceTypeId": 3,
       "mill": true,
       "carboy": true,
       "plastic": true,
@@ -290,7 +290,7 @@
     },
     {
       "id": 1,
-      "deviceTypeId": 2,
+      "deviceTypeId": 3,
       "mill": true,
       "carboy": true,
       "plastic": true,
@@ -316,7 +316,7 @@
     },
     {
       "id": 1,
-      "deviceTypeId": 2,
+      "deviceTypeId": 3,
       "mill": true,
       "position": "",
       "carboy": true,
@@ -343,7 +343,7 @@
     },
     {
       "id": 1,
-      "deviceTypeId": 2,
+      "deviceTypeId": 3,
       "mill": true,
       "carboy": true,
       "plastic": true,
@@ -369,7 +369,7 @@
     },
     {
       "id": 1,
-      "deviceTypeId": 2,
+      "deviceTypeId": 3,
       "mill": true,
       "carboy": true,
       "plastic": true,
@@ -395,7 +395,7 @@
     },
     {
       "id": 1,
-      "deviceTypeId": 2,
+      "deviceTypeId": 3,
       "mill": true,
       "carboy": true,
       "plastic": true,
@@ -421,7 +421,7 @@
     },
     {
       "id": 1,
-      "deviceTypeId": 2,
+      "deviceTypeId": 3,
       "mill": true,
       "carboy": true,
       "plastic": true,
@@ -447,7 +447,7 @@
     },
     {
       "id": 1,
-      "deviceTypeId": 2,
+      "deviceTypeId": 3,
       "mill": true,
       "carboy": true,
       "plastic": true,
@@ -473,7 +473,7 @@
     },
     {
       "id": 1,
-      "deviceTypeId": 2,
+      "deviceTypeId": 3,
       "mill": true,
       "carboy": true,
       "plastic": true,
@@ -499,7 +499,7 @@
     },
     {
       "id": 1,
-      "deviceTypeId": 2,
+      "deviceTypeId": 3,
       "mill": true,
       "carboy": true,
       "plastic": true,
@@ -525,7 +525,7 @@
     },
     {
       "id": 1,
-      "deviceTypeId": 2,
+      "deviceTypeId": 3,
       "mill": true,
       "carboy": true,
       "plastic": true,
@@ -551,7 +551,7 @@
     },
     {
       "id": 1,
-      "deviceTypeId": 2,
+      "deviceTypeId": 3,
       "mill": true,
       "carboy": true,
       "plastic": true,
@@ -577,7 +577,7 @@
     },
     {
       "id": 1,
-      "deviceTypeId": 2,
+      "deviceTypeId": 3,
       "mill": true,
       "carboy": true,
       "plastic": true,
@@ -603,7 +603,7 @@
     },
     {
       "id": 1,
-      "deviceTypeId": 2,
+      "deviceTypeId": 3,
       "mill": true,
       "carboy": true,
       "plastic": true,
