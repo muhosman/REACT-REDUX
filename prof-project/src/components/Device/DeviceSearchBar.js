@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Dropdown from "./DropDown";
+import Dropdown from "../DropDown";
 
 function DeviceSearchBar({ devices, handleSearch, isSearch }) {
   const [deviceType, setDeviceType] = useState("");
@@ -102,8 +102,8 @@ function DeviceSearchBar({ devices, handleSearch, isSearch }) {
   };
 
   return (
-    <div className="flex gap-3 flex-col w-full">
-      <div className="grid grid-cols-4 gap-3 mb-6 ">
+    <div className="flex gap-3 flex-col w-full text-xs xl:text-sm 2xl:text-base ">
+      <div className="grid 2xl:grid-cols-4 xl:grid-cols-4 grid-cols-3 gap-3 mb-6 ">
         <Dropdown
           options={positions}
           value={position}
@@ -126,7 +126,7 @@ function DeviceSearchBar({ devices, handleSearch, isSearch }) {
           barValue={"-Firma-"}
         />
       </div>
-      <div className="grid grid-cols-4 gap-3">
+      <div className="grid 2xl:grid-cols-4 xl:grid-cols-4 grid-cols-3 gap-3">
         <input
           className="w-full h-12 input rounded-full shadow border-1 p-3"
           value={inputSerial}

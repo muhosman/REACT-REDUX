@@ -7,64 +7,90 @@ import { MdCoffeeMaker, MdChecklistRtl } from "react-icons/md";
 import { TbTruckDelivery, TbReportSearch, TbReportMoney } from "react-icons/tb";
 import { GrHomeRounded } from "react-icons/gr";
 import { FiUsers } from "react-icons/fi";
-
 import avatar from "../img/avatar.png";
+
 function Sidebar() {
+  const styleLinkIcon = "2xl:w-6 2xl:h-6 w-5 h-5";
   const links = [
     {
-      icon: <BsGraphUp className="w-6 h-6" style={{ color: "#6c584c" }} />,
+      icon: (
+        <BsGraphUp className={styleLinkIcon} style={{ color: "#6c584c" }} />
+      ),
       label: "Dashboards",
       path: "/",
     },
     {
-      icon: <FaUserTie className="w-6 h-6" style={{ color: "#6c584c" }} />,
+      icon: (
+        <FaUserTie className={styleLinkIcon} style={{ color: "#6c584c" }} />
+      ),
       label: "Firmalar",
       path: "/firm",
     },
     {
-      icon: <MdCoffeeMaker className="w-6 h-6" style={{ color: "#6c584c" }} />,
+      icon: (
+        <MdCoffeeMaker className={styleLinkIcon} style={{ color: "#6c584c" }} />
+      ),
       label: "Cihazlar",
       path: "/device",
     },
     {
-      icon: <GiCoffeeBeans className="w-6 h-6" style={{ color: "#6c584c" }} />,
+      icon: (
+        <GiCoffeeBeans className={styleLinkIcon} style={{ color: "#6c584c" }} />
+      ),
       label: "Ürünler",
       path: "/product",
     },
     {
-      icon: <BsCart2 className="w-6 h-6" style={{ color: "#6c584c" }} />,
+      icon: <BsCart2 className={styleLinkIcon} style={{ color: "#6c584c" }} />,
       label: "Siparişler",
       path: "/order",
     },
     {
       icon: (
-        <TbTruckDelivery className="w-6 h-6" style={{ color: "#6c584c" }} />
+        <TbTruckDelivery
+          className={styleLinkIcon}
+          style={{ color: "#6c584c" }}
+        />
       ),
       label: "Teslimat",
       path: "/delivery",
     },
     {
-      icon: <GrHomeRounded className="w-6 h-6" style={{ color: "#6c584c" }} />,
+      icon: (
+        <GrHomeRounded className={styleLinkIcon} style={{ color: "#6c584c" }} />
+      ),
       label: "Depolar",
       path: "/store",
     },
     {
-      icon: <MdChecklistRtl className="w-6 h-6" style={{ color: "#6c584c" }} />,
+      icon: (
+        <MdChecklistRtl
+          className={styleLinkIcon}
+          style={{ color: "#6c584c" }}
+        />
+      ),
       label: "Stoklar",
       path: "/stock",
     },
     {
-      icon: <TbReportMoney className="w-6 h-6" style={{ color: "#6c584c" }} />,
+      icon: (
+        <TbReportMoney className={styleLinkIcon} style={{ color: "#6c584c" }} />
+      ),
       label: "Faturalar",
       path: "/bill",
     },
     {
-      icon: <FiUsers className="w-6 h-6" style={{ color: "#6c584c" }} />,
+      icon: <FiUsers className={styleLinkIcon} style={{ color: "#6c584c" }} />,
       label: "Kullanıcılar",
       path: "/user",
     },
     {
-      icon: <TbReportSearch className="w-6 h-6" style={{ color: "#6c584c" }} />,
+      icon: (
+        <TbReportSearch
+          className={styleLinkIcon}
+          style={{ color: "#6c584c" }}
+        />
+      ),
       label: "Raporlar",
       path: "/report",
     },
@@ -75,37 +101,46 @@ function Sidebar() {
       <Link
         key={link.label}
         to={link.path}
-        className="mb-4 p-3 flex items-center border-r-green-600 transition duration-500 hover:bg-gray-100"
+        className="mb-4 p-3 flex text-base items-center border-r-green-600 transition duration-500 hover:bg-gray-100"
         activeClassName="font-bold border-l-4 border-yellow-800 pl-2"
       >
         {link.icon}
-        <p className="pl-2">{link.label}</p>
+        <p className="pl-2 2xl:flex hidden">{link.label}</p>
       </Link>
     );
   });
 
   return (
-    <div className="top-0 left-0 fixed overflow-y-scroll flex flex-col bg-white mr-6">
-      <div className="flex flex-col">
+    <div className="top-0 left-0 fixed overflow-y-scroll flex bg-white mr-6">
+      <div className="flex flex-col ">
         <div
-          className="flex p-4 items-center"
+          className="flex 2xl:flex-row flex-col p-4 items-center min-w"
           style={{ backgroundColor: "#f5ebe0" }}
         >
           <div>
-            <img src={avatar} alt="Profile" className="w-16 opacity-50" />
+            <img
+              src={avatar}
+              alt="Profile"
+              className="2xl:w-16 w-12 opacity-50"
+            />
           </div>
-          <div className="ml-4 flex items-center">
+          <div className="flex p-2">
             <div>
-              <p style={{ color: "#6c584c" }}>Osman Talha Aydın</p>
-              <p className="text-base">BAYINER</p>
+              <p className="2xl:flex hidden" style={{ color: "#6c584c" }}>
+                Osman Talha Aydın
+              </p>
+              <p className="2xl:flex hidden text-base">BAYINER</p>
               <button>
-                <BiLogOut className="w-6 h-6" style={{ color: "#6c584c" }} />
+                <BiLogOut
+                  className="2xl:w-6 2xl:h-6 w-5 h-5"
+                  style={{ color: "#6c584c" }}
+                />
               </button>
             </div>
           </div>
         </div>
 
-        <div className="flex flex-col px-4 bg-white pt-8 h-screen">
+        <div className="flex flex-col  px-4 bg-white pt-6 h-screen">
           {renderedLinks}
         </div>
       </div>

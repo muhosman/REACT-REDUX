@@ -4,6 +4,8 @@
 
 body {
   background-color: #edede9;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
 button > svg {
   margin-right: 5px;

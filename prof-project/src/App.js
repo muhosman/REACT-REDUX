@@ -6,7 +6,7 @@ function App() {
   return (
     <div className="mt-4 w-1200 ">
       <Sidebar />
-      <div className="ml-72">
+      <div className="2xl:ml-72 ml-24">
         <Route path="/device">
           <DevicePage />
         </Route>

@@ -58,14 +58,18 @@ function Dropdown({ options, value, onChange, search, barValue }) {
   return (
     <div ref={divEl} className="relative">
       <Panel
-        className="flex transition-all duration-100 rounded-xl bg-gray-200 justify-between items-center cursor-pointer overflow-x-auto"
+        className="flex transition-all duration-100 rounded-xl bg-gray-200 justify-between items-center cursor-pointer overflow-x-auto z-0"
         onClick={handleClick}
       >
         {value?.label || barValue}
         <GoChevronDown className="text-lg" />
       </Panel>
       {isOpen && !search && (
-        <Panel className="absolute overflow-x-auto">{renderedOptions}</Panel>
+        <Panel
+          className={`absolute overflow-x-auto ${isOpen ? "z-50" : "z-0"}`}
+        >
+          {renderedOptions}
+        </Panel>
       )}
       {isOpen && search && (
         <div className="absolute w-full">
@@ -78,7 +82,11 @@ function Dropdown({ options, value, onChange, search, barValue }) {
             }}
             onClick={() => setInputFirm("")}
           />
-          <Panel className="absolute h-64 overflow-x-auto">
+          <Panel
+            className={`absolute h-64 overflow-x-auto ${
+              isOpen ? "z-50" : "z-0"
+            }`}
+          >
             {renderedOptions}
           </Panel>
         </div>

@@ -7,7 +7,7 @@ import { ImConnection } from "react-icons/im";
 import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
 import PaginationBar from "../components/PaginationBar";
 import Dropdown from "../components/DropDown";
-import SearchBar from "../components/DeviceSearchBar";
+import SearchBar from "../components/Device/DeviceSearchBar";
 import useDevicesContext from "../hooks/use-device-context";
 import Modal from "../components/Modal";
 import CreateDeviceModals from "../Modals/CreateDeviceModals";
@@ -28,14 +28,9 @@ function DevicePage() {
     setShowModal(false);
   };
 
-  const actionBar = (
-    <div>
-      <button onClick={handleCloseModel}>I Accept</button>
-    </div>
-  );
-  const modal = (
-    <Modal onClose={handleCloseModel} actionBar={actionBar}>
-      <CreateDeviceModals devices={devices} />
+  const deviceCreateModal = (
+    <Modal onClose={handleCloseModel}>
+      <CreateDeviceModals devices={devices} onClick={handleCloseModel} />
     </Modal>
   );
 
@@ -78,15 +73,10 @@ function DevicePage() {
         </div>
       ),
       render: () => (
-        <div className="flex flex-row gap-2 p-5 justify-center">
-          <button className="flex items-center p-2 rounded-full hover:rounded-full hover:p-2 transition duration-500 hover:bg-slate-200">
+        <div className="flex flex-row gap-2 justify-center">
+          <button className="flex items-center hover:rounded-full hover:p-2 transition duration-500 hover:bg-slate-200">
             <div>
-              <BsFillPencilFill className="w-6 h-6 opacity-60" />
-            </div>
-          </button>
-          <button className="flex items-center p-2 rounded-full hover:rounded-full hover:p-2 transition duration-500 hover:bg-slate-200">
-            <div>
-              <FaTrash className="w-6 h-6 opacity-60" />
+              <BsFillPencilFill className="2xl:w-6 2xl:h-6 w-5 h-5 opacity-60" />
             </div>
           </button>
         </div>
@@ -164,7 +154,7 @@ function DevicePage() {
   };
 
   return (
-    <div className="overflow-x-auto mr-6 ">
+    <div className="overflow-x-auto mr-6 z-0">
       <div className="p-1.5 w-full inline-block align-middle">
         <div className="flex my-3 justify-between items-center ">
           <div className="flex gap-3 ">
@@ -220,7 +210,7 @@ function DevicePage() {
           </div>
         </div>
       </div>
-      {showModal && modal}
+      {showModal && deviceCreateModal}
     </div>
   );
 }
