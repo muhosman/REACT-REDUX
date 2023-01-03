@@ -12,7 +12,7 @@ function DevicesProvider({ children }) {
   }, []);
 
   const editDevicesById = async (id, newTitle) => {
-    const response = await axios.put(`http://localhost:3001/devices/${id}`, {
+    const response = await axios.put(`http://localhost:3005/devices/${id}`, {
       title: newTitle,
     });
     const updatedDevices = devices.map((device) => {
@@ -25,20 +25,17 @@ function DevicesProvider({ children }) {
   };
 
   const deleteDeviceById = async (id) => {
-    await axios.delete(`http://localhost:3001/devices/${id}`);
-
-    const updatedDevices = devices.filter((book) => {
-      return book.id !== id;
+    await axios.delete(`http://localhost:3005/devices/${id}`);
+    const updatedDevices = devices.filter((device) => {
+      return device.id !== id;
     });
-
     setDevices(updatedDevices);
   };
 
-  const createDevice = async (title) => {
-    const response = await axios.post("http://localhost:3001/Devices", {
-      title,
+  const createDevice = async (device) => {
+    const response = await axios.post("http://localhost:3005/devices", {
+      device,
     });
-
     const updatedDevices = [...devices, response.data];
     setDevices(updatedDevices);
   };

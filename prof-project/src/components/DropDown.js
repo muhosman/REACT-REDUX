@@ -17,9 +17,7 @@ function Dropdown({ options, value, onChange, search, barValue }) {
         setIsOpen(false);
       }
     };
-
     document.addEventListener("click", handler, true);
-
     return () => {
       document.removeEventListener("click", handler);
     };

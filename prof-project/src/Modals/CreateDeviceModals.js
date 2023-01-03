@@ -1,30 +1,50 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Dropdown from "../components/DropDown";
 import { AiOutlineWifi } from "react-icons/ai";
 import { MdCoffeeMaker } from "react-icons/md";
 import { IoMdAddCircle } from "react-icons/io";
 import { GiConfirmed, GiCancel } from "react-icons/gi";
-
-import { Hidden } from "@mui/material";
+import useDevicesContext from "../hooks/use-device-context";
 
 function CreateDeviceModals({ devices, onClick }) {
-  const [deviceType, setDeviceType] = useState("");
-  const [firmname, setFirmName] = useState("");
-  const [inputIP, setInputIP] = useState("Ip");
-  const [inputSerialNo, setSerialNo] = useState("Serial No");
-  const [inputUserPW, setUserPW] = useState("Şifre");
-  const [inputAdminPW, setAdminPW] = useState("Şifre");
-  const [inputGSM, setGSM] = useState("GSM No");
-  const [inputExplanation, setExplanation] = useState("");
+  const { createDevice } = useDevicesContext();
+  const [input, setInput] = useState({
+    deviceType: "",
+    firmName: "",
+    ip: "",
+    serialNo: "",
+    userPassword: "",
+    adminPassword: "",
+    gsm: "",
+    explanation: "",
+    isActive: false,
+  });
 
   const [showConfirmModal, setShowConfirmModal] = useState(false);
 
   const handleOpenModal = () => {
-    setShowConfirmModal(true);
+    if (
+      input.deviceType !== "" &&
+      input.firmName !== "" &&
+      input.ip.length >= 6 &&
+      input.serialNo.length >= 6 &&
+      input.userPassword.length >= 8 &&
+      input.adminPassword.length >= 8 &&
+      input.gsm.length === 11
+    ) {
+      setShowConfirmModal(true);
+    }
+    console.log(input.gsm);
+    console.log(input);
   };
+
   const handleCloseModel = (bool) => {
-    if (bool) onClick();
-    else setShowConfirmModal(false);
+    if (bool) {
+      createDevice(input);
+      onClick();
+    } else {
+      setShowConfirmModal(false);
+    }
   };
 
   const deviceTypes = [
@@ -37,10 +57,30 @@ function CreateDeviceModals({ devices, onClick }) {
     return { label: device.firmName, value: device.firmName };
   });
   const handleSelectFirmName = (option) => {
-    setFirmName(option);
+    setInput({
+      deviceType: input.deviceType,
+      firmName: option.value,
+      ip: input.ip,
+      serialNo: input.serialNo,
+      userPassword: input.userPassword,
+      adminPassword: input.adminPassword,
+      gsm: input.gsm,
+      explanation: input.explanation,
+      isActive: input.isActive,
+    });
   };
   const handleSelectDevice = (option) => {
-    setDeviceType(option);
+    setInput({
+      deviceType: option.value,
+      firmName: input.firmName,
+      ip: input.ip,
+      serialNo: input.serialNo,
+      userPassword: input.userPassword,
+      adminPassword: input.adminPassword,
+      gsm: input.gsm,
+      explanation: input.explanation,
+      isActive: input.isActive,
+    });
   };
   return (
     <div>
@@ -52,10 +92,11 @@ function CreateDeviceModals({ devices, onClick }) {
         <div className=" flex flex-col gap-3 bg-yellow-800  mx-auto w-fit p-1 rounded-xl ">
           <div className="bg-white rounded-xl p-4 flex flex-col items-center">
             <p className="mb-4">
-              "{deviceType.value}" tipindeki cihazı yüklemek istiyor musunuz?
+              "{input.deviceType}" tipindeki cihazı yüklemek istiyor musunuz?
             </p>
             <div className="flex gap-2">
               <button
+                onClick={() => handleCloseModel(true)}
                 className="flex items-center bg-yellow-800 text-white p-2 rounded-xl
               hover:bg-yellow-600"
               >
@@ -91,7 +132,10 @@ function CreateDeviceModals({ devices, onClick }) {
             <div className="col-span-2 col-end-3">
               <Dropdown
                 options={deviceTypes}
-                value={deviceType}
+                value={{
+                  label: input.deviceType,
+                  value: input.deviceType,
+                }}
                 onChange={handleSelectDevice}
                 search={false}
                 barValue={"-Cihaz Tipi-"}
@@ -100,7 +144,10 @@ function CreateDeviceModals({ devices, onClick }) {
             <div className="col-span-2 col-end-5">
               <Dropdown
                 options={firmNames}
-                value={firmname}
+                value={{
+                  label: input.firmName,
+                  value: input.firmName,
+                }}
                 onChange={handleSelectFirmName}
                 search={true}
                 barValue={"-Firma-"}
@@ -109,12 +156,27 @@ function CreateDeviceModals({ devices, onClick }) {
             <div>
               <input
                 className="w-full h-12 input rounded-full shadow border-1 p-3"
-                value={inputIP}
-                onChange={(e) => {
-                  var lowerCase = e.target.value.toLowerCase();
-                  setInputIP(lowerCase);
+                value={input.ip}
+                maxLength="10"
+                onKeyPress={(event) => {
+                  if (!/[0-9]/.test(event.key)) {
+                    event.preventDefault();
+                  }
                 }}
-                onClick={() => setInputIP("")}
+                onChange={(e) => {
+                  var lowerCase = e.target.value;
+                  setInput({
+                    deviceType: input.deviceType,
+                    firmName: input.firmName,
+                    ip: lowerCase,
+                    serialNo: input.serialNo,
+                    userPassword: input.userPassword,
+                    adminPassword: input.adminPassword,
+                    gsm: input.gsm,
+                    explanation: input.explanation,
+                    isActive: input.isActive,
+                  });
+                }}
               />
             </div>
             <div className="flex justify-center items-center">
@@ -130,12 +192,27 @@ function CreateDeviceModals({ devices, onClick }) {
             <p className="ml-3 mb-2">Seri No</p>
             <input
               className="w-full h-12 input rounded-full shadow border-1 p-3"
-              value={inputSerialNo}
-              onChange={(e) => {
-                var lowerCase = e.target.value.toLowerCase();
-                setSerialNo(lowerCase);
+              value={input.serialNo}
+              maxLength="10"
+              onKeyPress={(event) => {
+                if (!/[0-9]/.test(event.key)) {
+                  event.preventDefault();
+                }
               }}
-              onClick={() => setSerialNo("")}
+              onChange={(e) => {
+                var lowerCase = e.target.value;
+                setInput({
+                  deviceType: input.deviceType,
+                  firmName: input.firmName,
+                  ip: input.ip,
+                  serialNo: lowerCase,
+                  userPassword: input.userPassword,
+                  adminPassword: input.adminPassword,
+                  gsm: input.gsm,
+                  explanation: input.explanation,
+                  isActive: input.isActive,
+                });
+              }}
             />
           </div>
           <div>
@@ -160,36 +237,71 @@ function CreateDeviceModals({ devices, onClick }) {
             <p className="mb-2 ml-3">Kullanıcı Şifresi</p>
             <input
               className="w-full h-12 input rounded-full shadow border-1 p-3"
-              value={inputUserPW}
+              value={input.userPassword}
+              maxLength="25"
               onChange={(e) => {
-                var lowerCase = e.target.value.toLowerCase();
-                setUserPW(lowerCase);
+                var lowerCase = e.target.value;
+                setInput({
+                  deviceType: input.deviceType,
+                  firmName: input.firmName,
+                  ip: input.ip,
+                  serialNo: input.serialNo,
+                  userPassword: lowerCase,
+                  adminPassword: input.adminPassword,
+                  gsm: input.gsm,
+                  explanation: input.explanation,
+                  isActive: input.isActive,
+                });
               }}
-              onClick={() => setUserPW("")}
             />
           </div>
           <div>
             <p className="ml-3 mb-2">Yönetici Şifresi</p>
             <input
               className="w-full h-12 input rounded-full shadow border-1 p-3"
-              value={inputAdminPW}
+              value={input.adminPassword}
+              maxLength="25"
               onChange={(e) => {
-                var lowerCase = e.target.value.toLowerCase();
-                setAdminPW(lowerCase);
+                var lowerCase = e.target.value;
+                setInput({
+                  deviceType: input.deviceType,
+                  firmName: input.firmName,
+                  ip: input.ip,
+                  serialNo: input.serialNo,
+                  userPassword: input.userPassword,
+                  adminPassword: lowerCase,
+                  gsm: input.gsm,
+                  explanation: input.explanation,
+                  isActive: input.isActive,
+                });
               }}
-              onClick={() => setAdminPW("")}
             />
           </div>
           <div>
             <p className="ml-3 mb-2">GSM No</p>
             <input
               className="w-full h-12 input rounded-full shadow border-1 p-3"
-              value={inputGSM}
-              onChange={(e) => {
-                var lowerCase = e.target.value.toLowerCase();
-                setGSM(lowerCase);
+              value={input.gsm}
+              maxLength="11"
+              onKeyPress={(event) => {
+                if (!/[0-9]/.test(event.key)) {
+                  event.preventDefault();
+                }
               }}
-              onClick={() => setGSM("")}
+              onChange={(e) => {
+                var lowerCase = e.target.value;
+                setInput({
+                  deviceType: input.deviceType,
+                  firmName: input.firmName,
+                  ip: input.ip,
+                  serialNo: input.serialNo,
+                  userPassword: input.userPassword,
+                  adminPassword: input.adminPassword,
+                  gsm: lowerCase,
+                  explanation: input.explanation,
+                  isActive: input.isActive,
+                });
+              }}
             />
           </div>
         </div>
@@ -198,19 +310,45 @@ function CreateDeviceModals({ devices, onClick }) {
             <p className="ml-3 mb-2">Açıklama</p>
             <input
               className="w-full h-12 input rounded-full shadow border-1 p-3"
-              value={inputExplanation}
+              value={input.explanation}
+              maxLength="100"
               onChange={(e) => {
                 var lowerCase = e.target.value;
-                setExplanation(lowerCase);
+                setInput({
+                  deviceType: input.deviceType,
+                  firmName: input.firmName,
+                  ip: input.ip,
+                  serialNo: input.serialNo,
+                  userPassword: input.userPassword,
+                  adminPassword: input.adminPassword,
+                  gsm: input.gsm,
+                  explanation: lowerCase,
+                  isActive: input.isActive,
+                });
               }}
-              onClick={() => setExplanation("")}
             />
           </div>
         </div>
         <div className="grid grid-cols-2 h-fit items-center">
           <div>
             <label className="flex px-3 w-fit">
-              <input type="checkbox" />
+              <input
+                type="checkbox"
+                checked={input.isActive}
+                onChange={() =>
+                  setInput({
+                    deviceType: input.deviceType,
+                    firmName: input.firmName,
+                    ip: input.ip,
+                    serialNo: input.serialNo,
+                    userPassword: input.userPassword,
+                    adminPassword: input.adminPassword,
+                    gsm: input.gsm,
+                    explanation: input.explanation,
+                    isActive: !input.isActive,
+                  })
+                }
+              />
               <p className="ml-2">Durum</p>
             </label>
           </div>

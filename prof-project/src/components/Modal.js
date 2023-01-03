@@ -1,7 +1,7 @@
 import ReactDOM from "react-dom";
 import { useEffect } from "react";
 
-function Modal({ onClose, children }) {
+function Modal({ onClose, children, style }) {
   useEffect(() => {
     document.body.classList.add("overflow-hidden");
 
@@ -16,7 +16,9 @@ function Modal({ onClose, children }) {
         onClick={onClose}
         className="fixed inset-0 bg-gray-300 opacity-80 "
       ></div>
-      <div className="fixed inset-y-32 inset-x-20 lg:inset-x-40 xl:inset-x-60 2xl:inset-x-80 bg-white rounded-xl  overflow-auto w-fit">
+      <div
+        className={`fixed ${style} bg-white rounded-xl  overflow-auto w-fit`}
+      >
         <div className="flex flex-col">{children}</div>
       </div>
     </div>,

@@ -5,12 +5,15 @@ import { BsFillPencilFill } from "react-icons/bs";
 import { FaTrash } from "react-icons/fa";
 import { ImConnection } from "react-icons/im";
 import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
+
 import PaginationBar from "../components/PaginationBar";
 import Dropdown from "../components/DropDown";
 import SearchBar from "../components/Device/DeviceSearchBar";
 import useDevicesContext from "../hooks/use-device-context";
 import Modal from "../components/Modal";
 import CreateDeviceModals from "../Modals/CreateDeviceModals";
+import DeleteDeviceModals from "../Modals/DeleteDeviceModals";
+import EditDeviceModals from "../Modals/EditDeviceModals";
 
 function DevicePage() {
   const { fetchDevices, devices } = useDevicesContext();
@@ -20,23 +23,67 @@ function DevicePage() {
   const [filteredData, setFilteredData] = useState("");
   const [isSearch, setIsSearch] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [deleted, setDeleted] = useState([]);
+  const [editId, setEditId] = useState("");
+  useEffect(() => {
+    fetchDevices();
+  }, [fetchDevices]);
 
   const handleOpenModal = () => {
     setShowModal(true);
   };
+
   const handleCloseModel = () => {
     setShowModal(false);
   };
 
+  const handleOpenDeleteModal = () => {
+    if (deleted !== null)
+      if (deleted?.length !== 0) {
+        setShowDeleteModal(true);
+      }
+  };
+
+  const handleCloseDeleteModal = () => {
+    setShowDeleteModal(false);
+  };
+
+  const handleOpenEditModal = () => {
+    setShowEditModal(true);
+  };
+
+  const handleCloseEditModal = () => {
+    setShowEditModal(false);
+  };
+
   const deviceCreateModal = (
-    <Modal onClose={handleCloseModel}>
+    <Modal
+      onClose={handleCloseModel}
+      style={"inset-y-32 inset-x-20 lg:inset-x-40 xl:inset-x-60 2xl:inset-x-80"}
+    >
       <CreateDeviceModals devices={devices} onClick={handleCloseModel} />
     </Modal>
   );
-
-  useEffect(() => {
-    fetchDevices();
-  }, [fetchDevices]);
+  const deviceEditModal = (
+    <Modal onClose={handleCloseEditModal} style={"top-12 left-1/4 right-1/4"}>
+      <EditDeviceModals
+        devices={devices}
+        Id={editId}
+        onClick={handleCloseEditModal}
+      />
+    </Modal>
+  );
+  const deviceDeleteModal = (
+    <Modal onClose={handleCloseDeleteModal} style={"top-1/3 left-1/3"}>
+      <DeleteDeviceModals
+        setDeleted={setDeleted}
+        deleted={deleted}
+        onClick={handleCloseDeleteModal}
+      />
+    </Modal>
+  );
 
   const hideSearchBar = () => {
     setSearchBar(searchBar === true ? false : true);
@@ -47,7 +94,6 @@ function DevicePage() {
     setIsSearch(isSearch);
   };
   const positions = [
-    { label: "Hepsi", value: "hepsi" },
     { label: "Depoda", value: "depoda" },
     { label: "Müşteride", value: "müşteride" },
     { label: "Plasiyerde", value: "plasiyerde" },
@@ -72,12 +118,25 @@ function DevicePage() {
           </button>
         </div>
       ),
-      render: () => (
-        <div className="flex flex-row gap-2 justify-center">
-          <button className="flex items-center hover:rounded-full hover:p-2 transition duration-500 hover:bg-slate-200">
-            <div>
+      render: (device) => (
+        <div className="flex flex-row gap-9 justify-center">
+          <input
+            className="abz"
+            value={device.id}
+            type="checkbox"
+            onChange={() => {
+              setDeleted([...deleted, device.id]);
+            }}
+          />
+          <button className="flex items-center justify-center py-2 pl-2 rounded-full transition duration-500 hover:bg-yellow-400">
+            <button
+              onClick={() => {
+                setEditId(device.id);
+                handleOpenEditModal();
+              }}
+            >
               <BsFillPencilFill className="2xl:w-6 2xl:h-6 w-5 h-5 opacity-60" />
-            </div>
+            </button>
           </button>
         </div>
       ),
@@ -157,11 +216,14 @@ function DevicePage() {
     <div className="overflow-x-auto mr-6 z-0">
       <div className="p-1.5 w-full inline-block align-middle">
         <div className="flex my-3 justify-between items-center ">
-          <div className="flex gap-3 ">
+          <div className="flex gap-3 items-center">
             <div>Cihaz Listesi</div>
             <div className="bg-yellow-600 px-2 rounded-full">
               {devices.length}
             </div>
+            <button onClick={handleOpenDeleteModal}>
+              <FaTrash className=" w-6 h-6" />
+            </button>
           </div>
           <div>
             <button
@@ -211,6 +273,8 @@ function DevicePage() {
         </div>
       </div>
       {showModal && deviceCreateModal}
+      {showDeleteModal && deviceDeleteModal}
+      {showEditModal && deviceEditModal}
     </div>
   );
 }
