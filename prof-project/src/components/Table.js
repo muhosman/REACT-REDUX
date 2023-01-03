@@ -25,7 +25,7 @@ function Table({ data, config, keyFn }) {
     });
 
     return (
-      <tr className="odd:bg-orange-50 bg-transparent" key={keyFn(rowData)}>
+      <tr className="odd:bg-slate-200 bg-transparent" key={keyFn(rowData)}>
         {renderedCells}
       </tr>
     );

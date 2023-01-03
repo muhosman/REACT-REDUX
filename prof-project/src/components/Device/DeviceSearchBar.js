@@ -36,6 +36,7 @@ function DeviceSearchBar({ devices, handleSearch, isSearch }) {
   ];
 
   const handleClickSearch = () => {
+    console.log(devices);
     handleSearch(filteredData, true);
   };
   const cleanBar = () => {
@@ -49,16 +50,6 @@ function DeviceSearchBar({ devices, handleSearch, isSearch }) {
 
   const filteredData = () => {
     return devices.filter((device) => {
-      console.log(
-        "\n" +
-          inputIP +
-          "-" +
-          device.ip +
-          "-" +
-          inputSerial +
-          "-" +
-          device.serialNo
-      );
       //if no input the return the original
       //console.log(device.deviceTypeId);
       if (
@@ -148,15 +139,13 @@ function DeviceSearchBar({ devices, handleSearch, isSearch }) {
         <div className="overflow-x-auto col-end-5 col-span-2 flex justify-end">
           <div className="flex gap-3">
             <button
-              className="px-8 hover:opacity-90 rounded-xl"
-              style={{ backgroundColor: "#edede9" }}
+              className="px-8 bg-slate-400 text-black rounded-xl"
               onClick={cleanBar}
             >
               Temizle
             </button>
             <button
-              className="px-8 hover:opacity-90 rounded-xl"
-              style={{ backgroundColor: "#bc6c25" }}
+              className="px-8 hover:bg-slate-600 rounded-xl bg-slate-800 text-white"
               onClick={handleClickSearch}
             >
               <p>Uygula</p>

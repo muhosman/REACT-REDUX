@@ -18,8 +18,8 @@ const PaginationBar = ({ devices, paginationNumber, setPaginationNumber }) => {
         <button
           className={
             pagNumber === paginationNumber
-              ? "bg-yellow-600 border-1 border-yellow-900 px-3 rounded-xl hover:bg-yellow-400 text-white"
-              : "px-2 rounded-xl border-1 border-yellow-900 hover:bg-yellow-400"
+              ? "bg-slate-800  px-3 rounded-xl hover:bg-slate-600 text-white"
+              : "px-2 rounded-xl border-1 bg-slate-800 hover:bg-slate-600 "
           }
           key={pagNumber}
           value={pagNumber}

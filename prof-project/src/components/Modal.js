@@ -16,9 +16,7 @@ function Modal({ onClose, children, style }) {
         onClick={onClose}
         className="fixed inset-0 bg-gray-300 opacity-80 "
       ></div>
-      <div
-        className={`fixed ${style} bg-white rounded-xl  overflow-auto w-fit`}
-      >
+      <div className={`fixed ${style} rounded-xl  overflow-auto w-fit`}>
         <div className="flex flex-col">{children}</div>
       </div>
     </div>,

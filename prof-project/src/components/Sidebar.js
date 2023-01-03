@@ -5,92 +5,66 @@ import { FaUserTie } from "react-icons/fa";
 import { GiCoffeeBeans } from "react-icons/gi";
 import { MdCoffeeMaker, MdChecklistRtl } from "react-icons/md";
 import { TbTruckDelivery, TbReportSearch, TbReportMoney } from "react-icons/tb";
-import { GrHomeRounded } from "react-icons/gr";
+import { RiHomeLine } from "react-icons/ri";
 import { FiUsers } from "react-icons/fi";
 import avatar from "../img/avatar.png";
 
 function Sidebar() {
   const styleLinkIcon = "2xl:w-6 2xl:h-6 w-5 h-5";
+
   const links = [
     {
-      icon: (
-        <BsGraphUp className={styleLinkIcon} style={{ color: "#6c584c" }} />
-      ),
+      icon: <BsGraphUp className={styleLinkIcon} />,
       label: "Dashboards",
-      path: "/",
+      path: "/dashboard",
     },
     {
-      icon: (
-        <FaUserTie className={styleLinkIcon} style={{ color: "#6c584c" }} />
-      ),
+      icon: <FaUserTie className={styleLinkIcon} />,
       label: "Firmalar",
       path: "/firm",
     },
     {
-      icon: (
-        <MdCoffeeMaker className={styleLinkIcon} style={{ color: "#6c584c" }} />
-      ),
+      icon: <MdCoffeeMaker className={styleLinkIcon} />,
       label: "Cihazlar",
       path: "/device",
     },
     {
-      icon: (
-        <GiCoffeeBeans className={styleLinkIcon} style={{ color: "#6c584c" }} />
-      ),
+      icon: <GiCoffeeBeans className={styleLinkIcon} />,
       label: "Ürünler",
       path: "/product",
     },
     {
-      icon: <BsCart2 className={styleLinkIcon} style={{ color: "#6c584c" }} />,
+      icon: <BsCart2 className={styleLinkIcon} />,
       label: "Siparişler",
       path: "/order",
     },
     {
-      icon: (
-        <TbTruckDelivery
-          className={styleLinkIcon}
-          style={{ color: "#6c584c" }}
-        />
-      ),
+      icon: <TbTruckDelivery className={styleLinkIcon} />,
       label: "Teslimat",
       path: "/delivery",
     },
     {
-      icon: (
-        <GrHomeRounded className={styleLinkIcon} style={{ color: "#6c584c" }} />
-      ),
+      icon: <RiHomeLine className={styleLinkIcon} />,
       label: "Depolar",
       path: "/store",
     },
     {
-      icon: (
-        <MdChecklistRtl
-          className={styleLinkIcon}
-          style={{ color: "#6c584c" }}
-        />
-      ),
+      icon: <MdChecklistRtl className={styleLinkIcon} />,
       label: "Stoklar",
       path: "/stock",
     },
     {
-      icon: (
-        <TbReportMoney className={styleLinkIcon} style={{ color: "#6c584c" }} />
-      ),
+      icon: <TbReportMoney className={styleLinkIcon} />,
       label: "Faturalar",
       path: "/bill",
     },
     {
-      icon: <FiUsers className={styleLinkIcon} style={{ color: "#6c584c" }} />,
+      icon: <FiUsers className={styleLinkIcon} />,
       label: "Kullanıcılar",
       path: "/user",
     },
     {
-      icon: (
-        <TbReportSearch
-          className={styleLinkIcon}
-          style={{ color: "#6c584c" }}
-        />
-      ),
+      icon: <TbReportSearch className={styleLinkIcon} />,
       label: "Raporlar",
       path: "/report",
     },
@@ -101,8 +75,8 @@ function Sidebar() {
       <Link
         key={link.label}
         to={link.path}
-        className="mb-4 p-3 flex text-base items-center border-r-green-600 transition duration-500 hover:bg-gray-100"
-        activeClassName="font-bold border-l-4 border-yellow-800 pl-2"
+        className="mb-4 p-3 flex text-base items-center transition duration-500 hover:bg-white hover:text-black"
+        activeClassName="font-bold border-l-4 border-white pl-2"
       >
         {link.icon}
         <p className="pl-2 2xl:flex hidden">{link.label}</p>
@@ -111,36 +85,24 @@ function Sidebar() {
   });
 
   return (
-    <div className="top-0 left-0 fixed overflow-y-scroll flex bg-white mr-6">
+    <div className="top-0 left-0 fixed overflow-y-scroll flex mr-6">
       <div className="flex flex-col ">
-        <div
-          className="flex 2xl:flex-row flex-col p-4 items-center min-w"
-          style={{ backgroundColor: "#f5ebe0" }}
-        >
+        <div className="flex 2xl:flex-row flex-col p-4 items-center min-w bg-gradient-to-r from-slate-600 to-slate-700">
           <div>
-            <img
-              src={avatar}
-              alt="Profile"
-              className="2xl:w-16 w-12 opacity-50"
-            />
+            <img src={avatar} alt="Profile" className="2xl:w-16 w-12 " />
           </div>
           <div className="flex p-2">
             <div>
-              <p className="2xl:flex hidden" style={{ color: "#6c584c" }}>
-                Osman Talha Aydın
-              </p>
-              <p className="2xl:flex hidden text-base">BAYINER</p>
-              <button>
-                <BiLogOut
-                  className="2xl:w-6 2xl:h-6 w-5 h-5"
-                  style={{ color: "#6c584c" }}
-                />
-              </button>
+              <p className="2xl:flex hidden text-white">Osman Talha Aydın</p>
+              <p className="2xl:flex hidden text-base text-white">BAYINER</p>
+              <Link to={"/"}>
+                <BiLogOut className="2xl:w-6 2xl:h-6 w-5 h-5 transition duration-500   text-white hover:text-slate-500" />
+              </Link>
             </div>
           </div>
         </div>
 
-        <div className="flex flex-col  px-4 bg-white pt-6 h-screen">
+        <div className="flex flex-col  px-4 bg-slate-800 pt-6 h-screen text-white">
           {renderedLinks}
         </div>
       </div>

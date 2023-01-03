@@ -113,21 +113,13 @@ function DevicePage() {
             onClick={handleOpenModal}
             className="mx-auto flex flex-row justify-center  rounded-full items-center bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-200 shadow"
           >
-            <AiOutlinePlus className="text-orange-400" />
+            <AiOutlinePlus />
             <div>Ekle</div>
           </button>
         </div>
       ),
       render: (device) => (
         <div className="flex flex-row gap-9 justify-center">
-          <input
-            className="abz"
-            value={device.id}
-            type="checkbox"
-            onChange={() => {
-              setDeleted([...deleted, device.id]);
-            }}
-          />
           <button className="flex items-center justify-center py-2 pl-2 rounded-full transition duration-500 hover:bg-yellow-400">
             <button
               onClick={() => {
@@ -175,7 +167,7 @@ function DevicePage() {
       label: "GSM",
       render: (device) => (
         <div className="flex flex-col justify-center items-center">
-          <div className="flex flex-row gap-2 items-center w-20 bg-green-100 px-6 py-0.25 mb-1">
+          <div className="flex flex-row gap-2 items-center w-20 bg-slate-500 text-white px-6 py-0.25 mb-1">
             <ImConnection className="4" />
             <p style={{ fontSize: "0.8rem" }}>5</p>
           </div>
@@ -192,20 +184,6 @@ function DevicePage() {
       label: "Konum",
       render: () => "Depoda",
     },
-    {
-      label: "İşlemler",
-      render: () => (
-        <div className=" flex w-auto flex-col items-center">
-          <Dropdown
-            options={positions}
-            value={position}
-            onChange={handleSelectPosition}
-            search={false}
-            barValue={"-İŞLEMLERİM-"}
-          />
-        </div>
-      ),
-    },
   ];
 
   const keyFn = (device) => {
@@ -213,22 +191,18 @@ function DevicePage() {
   };
 
   return (
-    <div className="overflow-x-auto mr-6 z-0">
+    <div className="overflow-x-auto mr-6 z-0 text-black">
       <div className="p-1.5 w-full inline-block align-middle">
         <div className="flex my-3 justify-between items-center ">
           <div className="flex gap-3 items-center">
             <div>Cihaz Listesi</div>
-            <div className="bg-yellow-600 px-2 rounded-full">
+            <div className=" bg-slate-800 text-white px-2 rounded-full">
               {devices.length}
             </div>
-            <button onClick={handleOpenDeleteModal}>
-              <FaTrash className=" w-6 h-6" />
-            </button>
           </div>
           <div>
             <button
-              className="flex items-center rounded-full p-3 mr-6 gap-3 hover:opacity-90"
-              style={{ backgroundColor: "#d5bdaf" }}
+              className="flex items-center rounded-full p-3 mr-6 gap-3 hover:bg-slate-600 bg-slate-800 text-white"
               onClick={hideSearchBar}
             >
               <p>FİLTRELE</p>

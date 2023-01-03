@@ -65,13 +65,13 @@ function EditDeviceModals({ devices, onClick, Id }) {
     });
   };
   return (
-    <div className=" text-sm">
+    <div className=" text-sm bg-white">
       <div
         className={` flex items-center justify-center absolute  ${
           showConfirmModal ? "flex" : "hidden"
         } w-full h-full z-10 bg-opacity-50 bg-gray-100 transition-all duration-100`}
       >
-        <div className=" flex flex-col gap-3 bg-yellow-800  mx-auto w-fit p-1 rounded-xl ">
+        <div className=" flex flex-col gap-3 bg-slate-600  mx-auto w-fit p-1 rounded-xl ">
           <div className="bg-white rounded-xl p-4 flex flex-col items-center">
             <p className="mb-4">
               "{input.deviceTypeId}" tipindeki cihazı yüklemek istiyor musunuz?
@@ -79,15 +79,15 @@ function EditDeviceModals({ devices, onClick, Id }) {
             <div className="flex gap-2">
               <button
                 onClick={() => handleCloseModel(true)}
-                className="flex items-center bg-yellow-800 text-white p-2 rounded-xl
-              hover:bg-yellow-600"
+                className="flex items-center bg-slate-800 text-white p-2 rounded-xl border-4
+              hover:bg-white hover:border-slate-800 hover:text-slate-800"
               >
                 <GiConfirmed />
                 Onay
               </button>
               <button
                 onClick={() => handleCloseModel(false)}
-                className="flex items-center bg-white text-yellow-800 border-4 rounded-xl p-2 hover:bg-yellow-600 hover:text-white"
+                className="flex items-center bg-white border-4 rounded-xl p-2 hover:bg-slate-600 hover:text-white"
               >
                 <GiCancel />
                 İptal
@@ -97,7 +97,7 @@ function EditDeviceModals({ devices, onClick, Id }) {
         </div>
       </div>
       <div className="grid grid-rows-5 gap-6 mt-10 p-16 items-center justify-center overflow-scroll">
-        <div className="flex px-6 py-3 bg-yellow-900 top-0 -left-0 absolute w-fitt h-fitt rounded-tl-2xl rounded-br-2xl ">
+        <div className="flex px-6 py-3 bg-slate-800 top-0 -left-0 absolute w-fitt h-fitt rounded-tl-2xl rounded-br-2xl ">
           <div className="flex justify-center items-center pt-2">
             <MdCoffeeMaker className="mr-2 w-6 h-6 text-white" />
             <p className=" text-white">Cihaz Düzenleme</p>
@@ -386,16 +386,14 @@ function EditDeviceModals({ devices, onClick, Id }) {
             />
           </div>
         </div>
-        <div className="grid grid-cols-2 h-fit items-center">
-          <div className="grid 2xl:grid-cols-4 xl:grid-cols-3 md:grid-cols-2 grid-cols-1 col-start-2">
-            <button
-              onClick={handleOpenModal}
-              className="active:text-yellow-800 items-center text-white mt-11 2xl:col-start-4 xl:col-start-3 md:col-start-2 flex bg-yellow-800 rounded-br-2xl rounded-tl-2xl px-6 py-3 active:bg-white  hover:bg-yellow-600 transition-all duration-500"
-            >
-              <IoMdSave className=" 2xl:w-6 2xl:h-6 w-5 h-5" />
-              <p className="">Kaydet</p>
-            </button>
-          </div>
+        <div className="grid 2xl:grid-cols-4 xl:grid-cols-3 md:grid-cols-2 grid-cols-1 items-end">
+          <button
+            onClick={handleOpenModal}
+            className="items-center justify-center w-fit text-white mt-11 2xl:col-start-4 xl:col-start-3 md:col-start-2 flex bg-slate-800 rounded-br-2xl rounded-tl-2xl px-6 py-3 active:bg-slate-800  hover:bg-slate-500 transition-all duration-500"
+          >
+            <IoMdSave className=" 2xl:w-6 2xl:h-6 w-5 h-5" />
+            <p className="">Kaydet</p>
+          </button>
         </div>
       </div>
     </div>
