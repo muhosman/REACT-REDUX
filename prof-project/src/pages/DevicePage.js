@@ -69,11 +69,13 @@ function DevicePage() {
   const deviceEditModal = (
     <Modal
       onClose={handleCloseEditModal}
-      style={"inset-y-32 inset-x-20 lg:inset-x-40 xl:inset-x-60 2xl:inset-x-80"}
+      style={"inset-y-6 inset-x-20 lg:inset-x-40 xl:inset-x-60 2xl:inset-x-80"}
     >
       <EditDeviceModals
         devices={devices}
-        Id={editId}
+        device={devices.find((device) => {
+          return device.id === editId;
+        })}
         onClick={handleCloseEditModal}
       />
     </Modal>

@@ -6,13 +6,10 @@ import { IoMdAddCircle, IoMdSave } from "react-icons/io";
 import { GiConfirmed, GiCancel } from "react-icons/gi";
 import useDevicesContext from "../hooks/use-device-context";
 
-function EditDeviceModals({ devices, onClick, Id }) {
+function EditDeviceModals({ devices, device, onClick }) {
   const { editDevicesById } = useDevicesContext();
-  const [input, setInput] = useState(
-    devices.find((device) => {
-      return device.id === Id;
-    })
-  );
+  const [input, setInput] = useState(device);
+
   console.log(input);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const handleOpenModal = () => {
@@ -22,6 +19,7 @@ function EditDeviceModals({ devices, onClick, Id }) {
 
   const handleCloseModel = (bool) => {
     if (bool) {
+      editDevicesById(device.id, input);
       onClick();
     } else {
       setShowConfirmModal(false);
@@ -34,33 +32,11 @@ function EditDeviceModals({ devices, onClick, Id }) {
     { label: "3", value: "3" },
     { label: "4", value: "4" },
   ];
-  const firmNames = devices.map((device) => {
-    return { label: device.firmName, value: device.firmName };
-  });
-  const handleSelectFirmName = (option) => {
-    setInput({
-      deviceTypeId: input.deviceTypeId,
-      firmName: option.value,
-      ip: input.ip,
-      serialNo: input.serialNo,
-      userPassword: input.userPassword,
-      adminPassword: input.adminPassword,
-      gsmNo: input.gsmNo,
-      note: input.note,
-      isActive: input.isActive,
-    });
-  };
+
   const handleSelectDevice = (option) => {
     setInput({
+      ...input,
       deviceTypeId: option.value,
-      firmName: input.firmName,
-      ip: input.ip,
-      serialNo: input.serialNo,
-      userPassword: input.userPassword,
-      adminPassword: input.adminPassword,
-      gsmNo: input.gsmNo,
-      note: input.note,
-      isActive: input.isActive,
     });
   };
   return (
@@ -95,8 +71,9 @@ function EditDeviceModals({ devices, onClick, Id }) {
           </div>
         </div>
       </div>
-      <div className="grid grid-rows-5 gap-6 mt-10 p-16 items-center justify-center overflow-scroll">
-        <div className="flex px-6 py-3 bg-slate-800 top-0 -left-0 absolute w-fitt h-fitt rounded-tl-2xl rounded-br-2xl ">
+      {/* Device Type And Firm name */}
+      <div className="flex flex-col gap-6 mt-24 mb-4 px-16 overflow-scroll">
+        <div className="flex px-6 py-3 bg-slate-800 top-0 -left-0 absolute w-fit h-fit rounded-tl-2xl rounded-br-2xl ">
           <div className="flex justify-center items-center pt-2">
             <MdCoffeeMaker className="mr-2 w-6 h-6 text-white" />
             <p className=" text-white">Cihaz Düzenleme</p>
@@ -121,65 +98,43 @@ function EditDeviceModals({ devices, onClick, Id }) {
               />
             </div>
             <div className="col-span-2 col-end-5">
-              <Dropdown
-                options={firmNames}
-                value={{
-                  label: input.firmName,
-                  value: input.firmName,
-                }}
-                onChange={handleSelectFirmName}
-                search={true}
-                barValue={"-Firma-"}
-              />
-            </div>
-          </div>
-        </div>
-        <div className="grid grid-cols-3 gap-6">
-          <div>
-            <div>
-              <div className="flex gap-3 ">
-                <p className="pl-2">IP</p>
-                <button className="flex gap-1">
-                  <AiOutlineWifi />
-                  <p>Bağlan</p>
-                </button>
-              </div>
               <input
                 className="w-full h-12 input rounded-full shadow border-1 p-3"
-                value={input.ip}
-                maxLength="10"
-                onKeyPress={(event) => {
-                  if (!/[0-9]/.test(event.key)) {
-                    event.preventDefault();
-                  }
-                }}
-                onChange={(e) => {
-                  var lowerCase = e.target.value;
-                  setInput({
-                    ip: lowerCase,
-                  });
-                }}
+                value={input.firmName}
+                disabled
               />
             </div>
           </div>
-          <div>
-            <p className="ml-3 mb-2">Kota</p>
-            <input
-              className="w-full h-12 input rounded-full shadow border-1 p-3"
-              value={input.quota}
-              disabled
-            />
-          </div>
-          <div>
-            <p className="ml-3 mb-2">Dönem</p>
-            <input
-              className="w-full h-12 input rounded-full shadow border-1 p-3"
-              value={input.counter}
-              disabled
-            />
-          </div>
         </div>
-        <div className="grid grid-cols-3 gap-6">
+        {/* Device Important Info. */}
+        <div className="grid grid-cols-4 gap-6">
+          <div>
+            <div className="flex gap-3 ">
+              <p className="pl-2">IP</p>
+              <button className="flex ml-4 justify-center  gap-1 text-slate-800 hover:text-green-400 transition duration-500">
+                <AiOutlineWifi />
+                <div className="flex items-center">
+                  <p>Bağlan</p>
+                </div>
+              </button>
+            </div>
+            <input
+              className="w-full h-12 input rounded-full shadow border-1 p-3"
+              value={input.ip}
+              maxLength="10"
+              onKeyPress={(event) => {
+                if (!/[0-9]/.test(event.key)) {
+                  event.preventDefault();
+                }
+              }}
+              onChange={(e) => {
+                var lowerCase = e.target.value;
+
+                setInput({ ...input, ip: lowerCase });
+              }}
+            />
+          </div>
+
           <div>
             <p className="ml-3 mb-2">Seri No</p>
             <input
@@ -211,8 +166,22 @@ function EditDeviceModals({ devices, onClick, Id }) {
               disabled
             />
           </div>
-        </div>
-        <div className="grid grid-cols-3 gap-6">
+          <div>
+            <p className="ml-3 mb-2">Kota</p>
+            <input
+              className="w-full h-12 input rounded-full shadow border-1 p-3"
+              value={input.quota}
+              disabled
+            />
+          </div>
+          <div>
+            <p className="ml-3 mb-2">Dönem</p>
+            <input
+              className="w-full h-12 input rounded-full shadow border-1 p-3"
+              value={input.counter}
+              disabled
+            />
+          </div>
           <div>
             <p className="mb-2 ml-3">Kullanıcı Şifresi</p>
             <input
@@ -221,9 +190,7 @@ function EditDeviceModals({ devices, onClick, Id }) {
               maxLength="25"
               onChange={(e) => {
                 var lowerCase = e.target.value;
-                setInput({
-                  userPassword: lowerCase,
-                });
+                setInput({ ...input, userPassword: lowerCase });
               }}
             />
           </div>
@@ -235,9 +202,7 @@ function EditDeviceModals({ devices, onClick, Id }) {
               maxLength="25"
               onChange={(e) => {
                 var lowerCase = e.target.value;
-                setInput({
-                  adminPassword: lowerCase,
-                });
+                setInput({ ...input, adminPassword: lowerCase });
               }}
             />
           </div>
@@ -252,15 +217,8 @@ function EditDeviceModals({ devices, onClick, Id }) {
               onChange={(e) => {
                 var lowerCase = e.target.value;
                 setInput({
-                  deviceTypeId: input.deviceTypeId,
-                  firmName: input.firmName,
-                  ip: input.ip,
-                  serialNo: input.serialNo,
-                  userPassword: input.userPassword,
-                  adminPassword: input.adminPassword,
-                  gsmNo: input.gsmNo,
+                  ...input,
                   note: lowerCase,
-                  isActive: input.isActive,
                 });
               }}
             />

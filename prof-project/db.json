@@ -2,14 +2,14 @@
   "devices": [
     {
       "id": 0,
-      "deviceTypeId": 4,
+      "deviceTypeId": "3",
       "mill": true,
       "position": "",
       "carboy": true,
       "plastic": true,
       "firmId": 6,
       "firmName": "LCW",
-      "ip": "154",
+      "ip": "1542314",
       "imei": "2145435",
       "gsmNo": "05454723253",
       "serialNo": "43254325",
@@ -22,7 +22,7 @@
       "lastConnectionDate": "12.12.2022 09:16",
       "deviceStatuId": 17,
       "isActive": false,
-      "note": "sample string 19",
+      "note": "Bu cihazın ıstıcısı arızalı.",
       "note2": "sample string 20",
       "createdInfo": "12.12.2022 09:16",
       "updatedInfo": "25.12.2022 09:16"

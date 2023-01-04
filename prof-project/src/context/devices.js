@@ -11,10 +11,11 @@ function DevicesProvider({ children }) {
     setDevices(response.data);
   }, []);
 
-  const editDevicesById = async (id, newTitle) => {
-    const response = await axios.put(`http://localhost:3005/devices/${id}`, {
-      title: newTitle,
-    });
+  const editDevicesById = async (id, device) => {
+    const response = await axios.put(
+      `http://localhost:3005/devices/${id}`,
+      device
+    );
     const updatedDevices = devices.map((device) => {
       if (device.id === id) {
         return { ...device, ...response.data };
