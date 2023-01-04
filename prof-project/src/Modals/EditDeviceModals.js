@@ -7,13 +7,13 @@ import { GiConfirmed, GiCancel } from "react-icons/gi";
 import useDevicesContext from "../hooks/use-device-context";
 
 function EditDeviceModals({ devices, onClick, Id }) {
-  const { createDevice } = useDevicesContext();
+  const { editDevicesById } = useDevicesContext();
   const [input, setInput] = useState(
     devices.find((device) => {
       return device.id === Id;
     })
   );
-  console.log();
+  console.log(input);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const handleOpenModal = () => {
     setShowConfirmModal(true);
@@ -22,7 +22,6 @@ function EditDeviceModals({ devices, onClick, Id }) {
 
   const handleCloseModel = (bool) => {
     if (bool) {
-      createDevice(input);
       onClick();
     } else {
       setShowConfirmModal(false);
@@ -69,7 +68,7 @@ function EditDeviceModals({ devices, onClick, Id }) {
       <div
         className={` flex items-center justify-center absolute  ${
           showConfirmModal ? "flex" : "hidden"
-        } w-full h-full z-10 bg-opacity-50 bg-gray-100 transition-all duration-100`}
+        } w-full h-full z-10 bg-opacity-50 transition-all duration-100`}
       >
         <div className=" flex flex-col gap-3 bg-slate-600  mx-auto w-fit p-1 rounded-xl ">
           <div className="bg-white rounded-xl p-4 flex flex-col items-center">
@@ -103,13 +102,11 @@ function EditDeviceModals({ devices, onClick, Id }) {
             <p className=" text-white">Cihaz Düzenleme</p>
           </div>
         </div>
-        <div className="">
+        <div>
           <div className="grid grid-cols-6 gap-6 mb-2">
             <p className="col-span-2 col-end-3">Cihaz Tipi</p>
             <p className="col-span-2 col-end-5">Firma</p>
-            <p className="pl-2">IP</p>
           </div>
-
           <div className="grid grid-cols-6 gap-6">
             <div className="col-span-2 col-end-3">
               <Dropdown
@@ -135,7 +132,18 @@ function EditDeviceModals({ devices, onClick, Id }) {
                 barValue={"-Firma-"}
               />
             </div>
+          </div>
+        </div>
+        <div className="grid grid-cols-3 gap-6">
+          <div>
             <div>
+              <div className="flex gap-3 ">
+                <p className="pl-2">IP</p>
+                <button className="flex gap-1">
+                  <AiOutlineWifi />
+                  <p>Bağlan</p>
+                </button>
+              </div>
               <input
                 className="w-full h-12 input rounded-full shadow border-1 p-3"
                 value={input.ip}
@@ -148,25 +156,27 @@ function EditDeviceModals({ devices, onClick, Id }) {
                 onChange={(e) => {
                   var lowerCase = e.target.value;
                   setInput({
-                    deviceTypeId: input.deviceTypeId,
-                    firmName: input.firmName,
                     ip: lowerCase,
-                    serialNo: input.serialNo,
-                    userPassword: input.userPassword,
-                    adminPassword: input.adminPassword,
-                    gsmNo: input.gsmNo,
-                    note: input.note,
-                    isActive: input.isActive,
                   });
                 }}
               />
             </div>
-            <div className="flex justify-center items-center">
-              <button className="flex gap-3">
-                <AiOutlineWifi />
-                <p>Bağlan</p>
-              </button>
-            </div>
+          </div>
+          <div>
+            <p className="ml-3 mb-2">Kota</p>
+            <input
+              className="w-full h-12 input rounded-full shadow border-1 p-3"
+              value={input.quota}
+              disabled
+            />
+          </div>
+          <div>
+            <p className="ml-3 mb-2">Dönem</p>
+            <input
+              className="w-full h-12 input rounded-full shadow border-1 p-3"
+              value={input.counter}
+              disabled
+            />
           </div>
         </div>
         <div className="grid grid-cols-3 gap-6">
@@ -175,41 +185,29 @@ function EditDeviceModals({ devices, onClick, Id }) {
             <input
               className="w-full h-12 input rounded-full shadow border-1 p-3"
               value={input.serialNo}
-              maxLength="10"
+              disabled
+            />
+          </div>
+          <div>
+            <p className="ml-3 mb-2">GSM No</p>
+            <input
+              className="w-full h-12 input rounded-full shadow border-1 p-3"
+              value={input.gsmNo}
+              maxLength="11"
               onKeyPress={(event) => {
                 if (!/[0-9]/.test(event.key)) {
                   event.preventDefault();
                 }
               }}
-              onChange={(e) => {
-                var lowerCase = e.target.value;
-                setInput({
-                  deviceTypeId: input.deviceTypeId,
-                  firmName: input.firmName,
-                  ip: input.ip,
-                  serialNo: lowerCase,
-                  userPassword: input.userPassword,
-                  adminPassword: input.adminPassword,
-                  gsmNo: input.gsmNo,
-                  note: input.note,
-                  isActive: input.isActive,
-                });
-              }}
-            />
-          </div>
-          <div>
-            <p className="ml-3 mb-2">Kota</p>
-            <input
-              className="w-full h-12 input rounded-full shadow border-1 p-3"
-              value="0"
               disabled
             />
           </div>
           <div>
-            <p className="ml-3 mb-2">Dönem</p>
+            <p className="ml-3 mb-2">Imei</p>
             <input
               className="w-full h-12 input rounded-full shadow border-1 p-3"
-              value="0"
+              value={input.imei}
+              maxLength="11"
               disabled
             />
           </div>
@@ -224,15 +222,7 @@ function EditDeviceModals({ devices, onClick, Id }) {
               onChange={(e) => {
                 var lowerCase = e.target.value;
                 setInput({
-                  deviceTypeId: input.deviceTypeId,
-                  firmName: input.firmName,
-                  ip: input.ip,
-                  serialNo: input.serialNo,
                   userPassword: lowerCase,
-                  adminPassword: input.adminPassword,
-                  gsmNo: input.gsmNo,
-                  note: input.note,
-                  isActive: input.isActive,
                 });
               }}
             />
@@ -246,42 +236,7 @@ function EditDeviceModals({ devices, onClick, Id }) {
               onChange={(e) => {
                 var lowerCase = e.target.value;
                 setInput({
-                  deviceType: input.deviceTypeId,
-                  firmName: input.firmName,
-                  ip: input.ip,
-                  serialNo: input.serialNo,
-                  userPassword: input.userPassword,
                   adminPassword: lowerCase,
-                  gsmNo: input.gsmNo,
-                  note: input.note,
-                  isActive: input.isActive,
-                });
-              }}
-            />
-          </div>
-          <div>
-            <p className="ml-3 mb-2">gsmNo No</p>
-            <input
-              className="w-full h-12 input rounded-full shadow border-1 p-3"
-              value={input.gsmNo}
-              maxLength="11"
-              onKeyPress={(event) => {
-                if (!/[0-9]/.test(event.key)) {
-                  event.preventDefault();
-                }
-              }}
-              onChange={(e) => {
-                var lowerCase = e.target.value;
-                setInput({
-                  deviceTypeId: input.deviceTypeId,
-                  firmName: input.firmName,
-                  ip: input.ip,
-                  serialNo: input.serialNo,
-                  userPassword: input.userPassword,
-                  adminPassword: input.adminPassword,
-                  gsmNo: lowerCase,
-                  note: input.note,
-                  isActive: input.isActive,
                 });
               }}
             />
@@ -319,14 +274,6 @@ function EditDeviceModals({ devices, onClick, Id }) {
                 checked={input.isActive}
                 onChange={() =>
                   setInput({
-                    deviceTypeId: input.deviceTypeId,
-                    firmName: input.firmName,
-                    ip: input.ip,
-                    serialNo: input.serialNo,
-                    userPassword: input.userPassword,
-                    adminPassword: input.adminPassword,
-                    gsmNo: input.gsmNo,
-                    note: input.note,
                     isActive: !input.isActive,
                   })
                 }
@@ -337,52 +284,19 @@ function EditDeviceModals({ devices, onClick, Id }) {
         </div>
         <div className="grid grid-cols-2 gap-6">
           <div>
-            <p className="ml-3 mb-2">Yönetici Şifresi</p>
+            <p className="ml-3 mb-2">Oluşturulma Tarihi</p>
             <input
               className="w-full h-12 input rounded-full shadow border-1 p-3"
-              value={input.adminPassword}
-              maxLength="25"
-              onChange={(e) => {
-                var lowerCase = e.target.value;
-                setInput({
-                  deviceType: input.deviceTypeId,
-                  firmName: input.firmName,
-                  ip: input.ip,
-                  serialNo: input.serialNo,
-                  userPassword: input.userPassword,
-                  adminPassword: lowerCase,
-                  gsmNo: input.gsmNo,
-                  note: input.note,
-                  isActive: input.isActive,
-                });
-              }}
+              value={input.createdInfo}
+              disabled
             />
           </div>
           <div>
-            <p className="ml-3 mb-2">gsmNo No</p>
+            <p className="ml-3 mb-2">Değiştirilme Tarihi</p>
             <input
               className="w-full h-12 input rounded-full shadow border-1 p-3"
-              value={input.gsmNo}
-              maxLength="11"
-              onKeyPress={(event) => {
-                if (!/[0-9]/.test(event.key)) {
-                  event.preventDefault();
-                }
-              }}
-              onChange={(e) => {
-                var lowerCase = e.target.value;
-                setInput({
-                  deviceTypeId: input.deviceTypeId,
-                  firmName: input.firmName,
-                  ip: input.ip,
-                  serialNo: input.serialNo,
-                  userPassword: input.userPassword,
-                  adminPassword: input.adminPassword,
-                  gsmNo: lowerCase,
-                  note: input.note,
-                  isActive: input.isActive,
-                });
-              }}
+              value={input.updatedInfo}
+              disabled
             />
           </div>
         </div>

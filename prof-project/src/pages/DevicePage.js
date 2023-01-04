@@ -67,7 +67,10 @@ function DevicePage() {
     </Modal>
   );
   const deviceEditModal = (
-    <Modal onClose={handleCloseEditModal} style={"top-12 left-1/4 right-1/4"}>
+    <Modal
+      onClose={handleCloseEditModal}
+      style={"inset-y-32 inset-x-20 lg:inset-x-40 xl:inset-x-60 2xl:inset-x-80"}
+    >
       <EditDeviceModals
         devices={devices}
         Id={editId}
@@ -120,15 +123,14 @@ function DevicePage() {
       ),
       render: (device) => (
         <div className="flex flex-row gap-9 justify-center">
-          <button className="flex items-center justify-center py-2 pl-2 rounded-full transition duration-500 hover:bg-yellow-400">
-            <button
-              onClick={() => {
-                setEditId(device.id);
-                handleOpenEditModal();
-              }}
-            >
-              <BsFillPencilFill className="2xl:w-6 2xl:h-6 w-5 h-5 opacity-60" />
-            </button>
+          <button
+            className="flex items-center justify-center py-2 pl-4 pr-3 rounded-full transition duration-500  hover:bg-slate-800 text-black hover:text-white"
+            onClick={() => {
+              setEditId(device.id);
+              handleOpenEditModal();
+            }}
+          >
+            <BsFillPencilFill className="2xl:w-8 2xl:h-8 w-5 h-5 opacity-60 " />
           </button>
         </div>
       ),
@@ -191,10 +193,10 @@ function DevicePage() {
   };
 
   return (
-    <div className="overflow-x-auto mr-6 z-0 text-black">
+    <div className="overflow-x-auto mr-6 z-0">
       <div className="p-1.5 w-full inline-block align-middle">
         <div className="flex my-3 justify-between items-center ">
-          <div className="flex gap-3 items-center">
+          <div className="flex gap-3 items-center text-slate-100">
             <div>Cihaz Listesi</div>
             <div className=" bg-slate-800 text-white px-2 rounded-full">
               {devices.length}
@@ -202,7 +204,7 @@ function DevicePage() {
           </div>
           <div>
             <button
-              className="flex items-center rounded-full p-3 mr-6 gap-3 hover:bg-slate-600 bg-slate-800 text-white"
+              className="flex items-center rounded-full p-3 mr-6 gap-3 hover:bg-slate-400 bg-slate-300 text-slate-800"
               onClick={hideSearchBar}
             >
               <p>FİLTRELE</p>

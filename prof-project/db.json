@@ -25,7 +25,7 @@
       "note": "sample string 19",
       "note2": "sample string 20",
       "createdInfo": "12.12.2022 09:16",
-      "updatedInfo": "12.12.2022 09:16"
+      "updatedInfo": "25.12.2022 09:16"
     },
     {
       "id": 1,
@@ -52,7 +52,7 @@
       "note": "sample string 19",
       "note2": "sample string 20",
       "createdInfo": "12.12.2022 09:16",
-      "updatedInfo": "12.12.2022 09:16"
+      "updatedInfo": "23.12.2022 09:16"
     },
     {
       "id": 2,
@@ -79,7 +79,7 @@
       "note": "sample string 19",
       "note2": "sample string 20",
       "createdInfo": "12.12.2022 09:16",
-      "updatedInfo": "12.12.2022 09:16"
+      "updatedInfo": "21.12.2022 09:16"
     }
   ]
 }
