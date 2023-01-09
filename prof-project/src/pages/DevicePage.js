@@ -11,7 +11,7 @@ import useDevicesContext from "../hooks/use-device-context";
 import Modal from "../components/Modal";
 import CreateDeviceModals from "../Modals/CreateDeviceModals";
 import EditDeviceModals from "../Modals/EditDeviceModals";
-import { CSSTransition } from "react-transition-group";
+import InfoDeviceModals from "../Modals/InfoDeviceModals";
 
 function DevicePage() {
   const { fetchDevices, devices } = useDevicesContext();
@@ -21,6 +21,8 @@ function DevicePage() {
   const [isSearch, setIsSearch] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
+  const [showInfoModal, setShowInfoModal] = useState(false);
+
   const [editId, setEditId] = useState("");
 
   useEffect(() => {
@@ -34,6 +36,14 @@ function DevicePage() {
 
   const handleCloseModel = () => {
     setShowModal(false);
+  };
+
+  const handleOpenInfoModal = () => {
+    setShowInfoModal(true);
+  };
+
+  const handleCloseInfoModal = () => {
+    setShowInfoModal(false);
   };
 
   const handleOpenEditModal = () => {
@@ -52,6 +62,7 @@ function DevicePage() {
       <CreateDeviceModals devices={devices} onClick={handleCloseModel} />
     </Modal>
   );
+
   const deviceEditModal = (
     <Modal
       onClose={handleCloseEditModal}
@@ -67,14 +78,22 @@ function DevicePage() {
     </Modal>
   );
 
+  const deviceInfoModal = (
+    <Modal onClose={handleCloseInfoModal} style={"inset-y-20 inset-x-80"}>
+      <InfoDeviceModals />
+    </Modal>
+  );
+
   const hideSearchBar = () => {
     setSearchBar(searchBar === true ? false : true);
   };
+
   const handleSearch = (data, isSearch) => {
     setPaginationNumber(1);
     setFilteredData(data);
     setIsSearch(isSearch);
   };
+
   const config = [
     {
       class: "w-4",
@@ -103,8 +122,7 @@ function DevicePage() {
           <button
             className="flex items-center justify-center py-2 pl-4 pr-3 rounded-full transition duration-500  hover:bg-slate-800 text-black hover:text-white"
             onClick={() => {
-              setEditId(device.id);
-              handleOpenEditModal();
+              handleOpenInfoModal();
             }}
           >
             <TbReportAnalytics className="2xl:w-8 2xl:h-8 w-5 h-5  " />
@@ -233,6 +251,7 @@ function DevicePage() {
       </div>
       {showModal && deviceCreateModal}
       {showEditModal && deviceEditModal}
+      {showInfoModal && deviceInfoModal}
     </div>
   );
 }
