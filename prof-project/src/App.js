@@ -2,6 +2,7 @@ import Sidebar from "./components/Sidebar";
 import DevicePage from "./pages/DevicePage.js";
 import DashBoardPage from "./pages/DashBoardPage";
 import FirmPage from "./pages/FirmPage";
+import ProfilePage from "./pages/ProfilePage";
 import ProductPage from "./pages/ProductPage";
 import OrderPage from "./pages/OrderPage";
 import DeliveryPage from "./pages/DeliveryPage";
@@ -23,11 +24,27 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
-        <Route path="login" element={<LoginPage />} />
-
+        <Route path="" element={<LoginPage />} />
         <Route
-          element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.User]} />}
+          element={
+            <RequireAuth
+              allowedRoles={[ROLES.Admin, ROLES.User, ROLES.Editor]}
+            />
+          }
         >
+          <Route
+            path="profile"
+            element={
+              <div className="mt-4 w-1200 ">
+                <div className="2xl:ml-72 xl:ml-72 ml-24">
+                  <Sidebar />
+                  <ProfilePage />
+                </div>
+              </div>
+            }
+          />
+        </Route>
+        <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
           <Route
             path="dashboard"
             element={
@@ -68,7 +85,7 @@ function App() {
           />
         </Route>
 
-        <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
+        <Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
           <Route
             path="product"
             element={
@@ -82,7 +99,7 @@ function App() {
           />
         </Route>
 
-        <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
+        <Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
           <Route
             path="order"
             element={
@@ -96,7 +113,7 @@ function App() {
           />
         </Route>
 
-        <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
+        <Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
           <Route
             path="delivery"
             element={
@@ -109,7 +126,7 @@ function App() {
             }
           />
         </Route>
-        <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
+        <Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
           <Route
             path="stock"
             element={
@@ -122,7 +139,7 @@ function App() {
             }
           />
         </Route>
-        <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
+        <Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
           <Route
             path="store"
             element={
@@ -135,7 +152,7 @@ function App() {
             }
           />
         </Route>
-        <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
+        <Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
           <Route
             path="bill"
             element={
@@ -161,7 +178,7 @@ function App() {
             }
           />
         </Route>
-        <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
+        <Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
           <Route
             path="report"
             element={

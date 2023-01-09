@@ -18,9 +18,12 @@ function DeviceSearchBar({ devices, handleSearch, isSearch }) {
     setFirmName(option);
   };
 
-  const firmNames = devices.map((device) => {
-    return { label: device.firmName, value: device.firmName };
-  });
+  const firmNames = [
+    { label: "Bayıner", value: "Bayıner" },
+    { label: "LCW", value: "LCW" },
+    { label: "Mado", value: "Mado" },
+    { label: "Safaş", value: "Safaş" },
+  ];
   const positions = [
     { label: "Depoda", value: "depoda" },
     { label: "Müşteride", value: "müşteride" },

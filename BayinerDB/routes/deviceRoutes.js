@@ -1,19 +1,40 @@
 const express = require('express');
-const deviceController = require('../controllers/deviceController');
+const deviceController = require('./../controllers/deviceController');
+const authController = require('../controllers/authController');
 
 const router = express.Router();
 
-router.param('id', deviceController.checkID);
+// router.param('id', deviceController.checkID);
 
 router
   .route('/')
-  .get(deviceController.getAllDevices)
-  .post(deviceController.checkBody, deviceController.createDevice);
+  .get(
+    authController.protect,
+    authController.restrictTo('admin'),
+    deviceController.getAllDevices
+  )
+  .post(
+    authController.protect,
+    authController.restrictTo('admin'),
+    deviceController.createDevice
+  );
 
 router
   .route('/:id')
-  .get(deviceController.getDevice)
-  .patch(deviceController.updateDevice)
-  .delete(deviceController.deleteDevice);
+  .get(
+    authController.protect,
+    authController.restrictTo('admin'),
+    deviceController.getDevice
+  )
+  .patch(
+    authController.protect,
+    authController.restrictTo('admin'),
+    deviceController.updateDevice
+  )
+  .delete(
+    authController.protect,
+    authController.restrictTo('admin'),
+    deviceController.deleteDevice
+  );
 
 module.exports = router;

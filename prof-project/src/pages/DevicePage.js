@@ -2,34 +2,31 @@ import SortableTable from "../components/SortableTable";
 import { useEffect, useState } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
 import { BsFillPencilFill } from "react-icons/bs";
-import { FaTrash } from "react-icons/fa";
+import { TbReportAnalytics } from "react-icons/tb";
 import { ImConnection } from "react-icons/im";
 import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
-
 import PaginationBar from "../components/PaginationBar";
-import Dropdown from "../components/DropDown";
 import SearchBar from "../components/Device/DeviceSearchBar";
 import useDevicesContext from "../hooks/use-device-context";
 import Modal from "../components/Modal";
 import CreateDeviceModals from "../Modals/CreateDeviceModals";
-import DeleteDeviceModals from "../Modals/DeleteDeviceModals";
 import EditDeviceModals from "../Modals/EditDeviceModals";
+import { CSSTransition } from "react-transition-group";
 
 function DevicePage() {
   const { fetchDevices, devices } = useDevicesContext();
-  const [position, setPosition] = useState(null);
   const [paginationNumber, setPaginationNumber] = useState(1);
   const [searchBar, setSearchBar] = useState(true);
   const [filteredData, setFilteredData] = useState("");
   const [isSearch, setIsSearch] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
-  const [deleted, setDeleted] = useState([]);
   const [editId, setEditId] = useState("");
+
   useEffect(() => {
     fetchDevices();
   }, [fetchDevices]);
+  console.log(devices);
 
   const handleOpenModal = () => {
     setShowModal(true);
@@ -37,17 +34,6 @@ function DevicePage() {
 
   const handleCloseModel = () => {
     setShowModal(false);
-  };
-
-  const handleOpenDeleteModal = () => {
-    if (deleted !== null)
-      if (deleted?.length !== 0) {
-        setShowDeleteModal(true);
-      }
-  };
-
-  const handleCloseDeleteModal = () => {
-    setShowDeleteModal(false);
   };
 
   const handleOpenEditModal = () => {
@@ -61,7 +47,7 @@ function DevicePage() {
   const deviceCreateModal = (
     <Modal
       onClose={handleCloseModel}
-      style={"inset-y-32 inset-x-20 lg:inset-x-40 xl:inset-x-60 2xl:inset-x-80"}
+      style={"inset-y-6 inset-x-20 lg:inset-x-40 xl:inset-x-60 2xl:inset-x-80"}
     >
       <CreateDeviceModals devices={devices} onClick={handleCloseModel} />
     </Modal>
@@ -80,15 +66,6 @@ function DevicePage() {
       />
     </Modal>
   );
-  const deviceDeleteModal = (
-    <Modal onClose={handleCloseDeleteModal} style={"top-1/3 left-1/3"}>
-      <DeleteDeviceModals
-        setDeleted={setDeleted}
-        deleted={deleted}
-        onClick={handleCloseDeleteModal}
-      />
-    </Modal>
-  );
 
   const hideSearchBar = () => {
     setSearchBar(searchBar === true ? false : true);
@@ -98,17 +75,6 @@ function DevicePage() {
     setFilteredData(data);
     setIsSearch(isSearch);
   };
-  const positions = [
-    { label: "Depoda", value: "depoda" },
-    { label: "Müşteride", value: "müşteride" },
-    { label: "Plasiyerde", value: "plasiyerde" },
-    { label: "Serviste", value: "serviste" },
-  ];
-
-  const handleSelectPosition = (option) => {
-    setPosition(option);
-  };
-
   const config = [
     {
       class: "w-4",
@@ -116,7 +82,7 @@ function DevicePage() {
         <div>
           <button
             onClick={handleOpenModal}
-            className="mx-auto flex flex-row justify-center  rounded-full items-center bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-200 shadow"
+            className="mx-auto flex flex-row justify-center  rounded-full items-center transition duration-500 hover:bg-slate-800 text-black hover:text-white font-semibold py-2 px-4 border border-gray-200 shadow"
           >
             <AiOutlinePlus />
             <div>Ekle</div>
@@ -124,7 +90,7 @@ function DevicePage() {
         </div>
       ),
       render: (device) => (
-        <div className="flex flex-row gap-9 justify-center">
+        <div className="flex flex-row justify-center">
           <button
             className="flex items-center justify-center py-2 pl-4 pr-3 rounded-full transition duration-500  hover:bg-slate-800 text-black hover:text-white"
             onClick={() => {
@@ -132,7 +98,16 @@ function DevicePage() {
               handleOpenEditModal();
             }}
           >
-            <BsFillPencilFill className="2xl:w-8 2xl:h-8 w-5 h-5 opacity-60 " />
+            <BsFillPencilFill className="2xl:w-8 2xl:h-8 w-5 h-5  " />
+          </button>
+          <button
+            className="flex items-center justify-center py-2 pl-4 pr-3 rounded-full transition duration-500  hover:bg-slate-800 text-black hover:text-white"
+            onClick={() => {
+              setEditId(device.id);
+              handleOpenEditModal();
+            }}
+          >
+            <TbReportAnalytics className="2xl:w-8 2xl:h-8 w-5 h-5  " />
           </button>
         </div>
       ),
@@ -171,8 +146,14 @@ function DevicePage() {
       label: "GSM",
       render: (device) => (
         <div className="flex flex-col justify-center items-center">
-          <div className="flex flex-row gap-2 items-center w-20 bg-slate-500 text-white px-6 py-0.25 mb-1">
-            <ImConnection className="4" />
+          <div className="flex flex-row gap-2 items-center w-20 text-slate-800 px-6 py-0.25 mb-1">
+            <ImConnection
+              className={`${
+                device.isActive
+                  ? "text-green-800"
+                  : "animate-pulse text-red-500"
+              }  delay-200 w-5 h-5`}
+            />
             <p style={{ fontSize: "0.8rem" }}>5</p>
           </div>
           <div
@@ -191,7 +172,7 @@ function DevicePage() {
   ];
 
   const keyFn = (device) => {
-    return device.firmName;
+    return device.id;
   };
 
   return (
@@ -225,8 +206,8 @@ function DevicePage() {
         </div>
         <div
           className={`bg-white rounded-xl p-10 shadow mb-4 ${
-            searchBar ? "flex" : "hidden"
-          } transition-all duration-500`}
+            searchBar ? "block" : "hidden"
+          }`}
         >
           <SearchBar
             devices={devices}
@@ -251,7 +232,6 @@ function DevicePage() {
         </div>
       </div>
       {showModal && deviceCreateModal}
-      {showDeleteModal && deviceDeleteModal}
       {showEditModal && deviceEditModal}
     </div>
   );

@@ -2,7 +2,7 @@ import { useState } from "react";
 import Dropdown from "../components/DropDown";
 import { AiOutlineWifi } from "react-icons/ai";
 import { MdCoffeeMaker } from "react-icons/md";
-import { IoMdAddCircle, IoMdSave } from "react-icons/io";
+import { IoMdSave } from "react-icons/io";
 import { GiConfirmed, GiCancel } from "react-icons/gi";
 import useDevicesContext from "../hooks/use-device-context";
 
@@ -14,7 +14,6 @@ function EditDeviceModals({ devices, device, onClick }) {
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const handleOpenModal = () => {
     setShowConfirmModal(true);
-    console.log(input);
   };
 
   const handleCloseModel = (bool) => {
@@ -34,9 +33,18 @@ function EditDeviceModals({ devices, device, onClick }) {
   ];
 
   const handleSelectDevice = (option) => {
+    const currentDate = new Date(Date.now());
+    const formattedDate = currentDate.toLocaleString("tr-TR", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
     setInput({
       ...input,
       deviceTypeId: option.value,
+      updatedInfo: formattedDate,
     });
   };
   return (
@@ -49,7 +57,8 @@ function EditDeviceModals({ devices, device, onClick }) {
         <div className=" flex flex-col gap-3 bg-slate-600  mx-auto w-fit p-1 rounded-xl ">
           <div className="bg-white rounded-xl p-4 flex flex-col items-center">
             <p className="mb-4">
-              "{input.deviceTypeId}" tipindeki cihazı yüklemek istiyor musunuz?
+              "{input.serialNo}" seri nolu cihazın bilgilerini güncellemek
+              istiyor musunuz?
             </p>
             <div className="flex gap-2">
               <button
@@ -111,7 +120,7 @@ function EditDeviceModals({ devices, device, onClick }) {
           <div>
             <div className="flex gap-3 ">
               <p className="pl-2">IP</p>
-              <button className="flex ml-4 justify-center  gap-1 text-slate-800 hover:text-green-400 transition duration-500">
+              <button className="flex animate-bounce ml-4 justify-center  gap-1 text-slate-800 hover:text-green-400 transition duration-500">
                 <AiOutlineWifi />
                 <div className="flex items-center">
                   <p>Bağlan</p>
@@ -231,9 +240,7 @@ function EditDeviceModals({ devices, device, onClick }) {
                 type="checkbox"
                 checked={input.isActive}
                 onChange={() =>
-                  setInput({
-                    isActive: !input.isActive,
-                  })
+                  setInput({ ...input, isActive: !input.isActive })
                 }
               />
               <p className="ml-2">Durum</p>

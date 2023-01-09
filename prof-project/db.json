@@ -1,33 +1,6 @@
 {
   "devices": [
     {
-      "id": 0,
-      "deviceTypeId": "3",
-      "mill": true,
-      "position": "",
-      "carboy": true,
-      "plastic": true,
-      "firmId": 6,
-      "firmName": "LCW",
-      "ip": "1542314",
-      "imei": "2145435",
-      "gsmNo": "05454723253",
-      "serialNo": "43254325",
-      "userPassword": "1000",
-      "adminPassword": "1001",
-      "quota": 1468,
-      "counter": 1523,
-      "connectionLevel": 1,
-      "settings": "",
-      "lastConnectionDate": "12.12.2022 09:16",
-      "deviceStatuId": 17,
-      "isActive": false,
-      "note": "Bu cihazın ıstıcısı arızalı.",
-      "note2": "sample string 20",
-      "createdInfo": "12.12.2022 09:16",
-      "updatedInfo": "25.12.2022 09:16"
-    },
-    {
       "id": 1,
       "deviceTypeId": 2,
       "mill": true,
@@ -48,11 +21,21 @@
       "settings": "",
       "lastConnectionDate": "12.12.2022 09:16",
       "deviceStatuId": 17,
-      "isActive": false,
+      "isActive": true,
       "note": "sample string 19",
       "note2": "sample string 20",
       "createdInfo": "12.12.2022 09:16",
-      "updatedInfo": "23.12.2022 09:16"
+      "updatedInfo": "23.12.2022 09:16",
+      "deviceGeo": {
+        "location": "sample string 1",
+        "cityName": "sample string 2",
+        "townName": "sample string 3"
+      },
+      "mainFirmInfo": {
+        "firmQuota": 1,
+        "mainFirmName": "sample string 2",
+        "mainFirmQuota": 1
+      }
     },
     {
       "id": 2,
@@ -68,7 +51,7 @@
       "gsmNo": "05452723253",
       "serialNo": "23254325",
       "userPassword": "1000",
-      "adminPassword": "1001",
+      "adminPassword": "1002",
       "quota": 1468,
       "counter": 1523,
       "connectionLevel": 1,
@@ -76,10 +59,205 @@
       "lastConnectionDate": "12.12.2022 09:16",
       "deviceStatuId": 15,
       "isActive": false,
-      "note": "sample string 19",
+      "note": "Bu cihazda pervane sorunu var.",
       "note2": "sample string 20",
       "createdInfo": "12.12.2022 09:16",
-      "updatedInfo": "21.12.2022 09:16"
+      "updatedInfo": "21.12.2022 09:16",
+      "deviceGeo": {
+        "location": "sample string 1",
+        "cityName": "sample string 2",
+        "townName": "sample string 3"
+      },
+      "mainFirmInfo": {
+        "firmQuota": 1,
+        "mainFirmName": "sample string 2",
+        "mainFirmQuota": 1
+      }
+    },
+    {
+      "id": 3,
+      "deviceTypeId": "2",
+      "mill": false,
+      "position": "Depoda",
+      "carboy": false,
+      "plastic": false,
+      "firmId": "",
+      "firmName": "LCW",
+      "ip": "53245213",
+      "imei": "2134325",
+      "gsmNo": "35212315231",
+      "serialNo": "3421523151",
+      "userPassword": "5213521352135",
+      "adminPassword": "325121352315",
+      "quota": 0,
+      "counter": 0,
+      "connectionLevel": 1,
+      "settings": "",
+      "lastConnectionDate": "12.12.2022 09:16",
+      "deviceStatuId": 15,
+      "isActive": true,
+      "note": "",
+      "note2": "sample string 20",
+      "createdInfo": "09.01.2023 08:46",
+      "updatedInfo": "09.01.2023 08:46",
+      "deviceGeo": {
+        "location": "sample string 1",
+        "cityName": "sample string 2",
+        "townName": "sample string 3"
+      },
+      "mainFirmInfo": {
+        "firmQuota": 1,
+        "mainFirmName": "sample string 2",
+        "mainFirmQuota": 1
+      }
+    },
+    {
+      "id": 5,
+      "deviceTypeId": "2",
+      "mill": false,
+      "position": "Depoda",
+      "carboy": false,
+      "plastic": false,
+      "firmId": "",
+      "firmName": "LCW",
+      "ip": "4365476845",
+      "imei": "2134325",
+      "gsmNo": "05321351235",
+      "serialNo": "2315231523",
+      "userPassword": "23153",
+      "adminPassword": "231523",
+      "quota": 0,
+      "counter": 0,
+      "connectionLevel": 1,
+      "settings": "",
+      "lastConnectionDate": "12.12.2022 09:16",
+      "deviceStatuId": 15,
+      "isActive": false,
+      "note": "Cihaz hazır.",
+      "note2": "sample string 20",
+      "createdInfo": "09.01.2023 08:57",
+      "updatedInfo": "09.01.2023 09:01",
+      "deviceGeo": {
+        "location": "sample string 1",
+        "cityName": "sample string 2",
+        "townName": "sample string 3"
+      },
+      "mainFirmInfo": {
+        "firmQuota": 1,
+        "mainFirmName": "sample string 2",
+        "mainFirmQuota": 1
+      }
+    },
+    {
+      "id": 6,
+      "deviceTypeId": "3",
+      "mill": false,
+      "position": "Depoda",
+      "carboy": false,
+      "plastic": false,
+      "firmId": "",
+      "firmName": "Bayıner",
+      "ip": "231453215",
+      "imei": "2134325",
+      "gsmNo": "21532523152",
+      "serialNo": "23152135",
+      "userPassword": "23153215",
+      "adminPassword": "5231523",
+      "quota": 0,
+      "counter": 0,
+      "connectionLevel": 1,
+      "settings": "",
+      "lastConnectionDate": "12.12.2022 09:16",
+      "deviceStatuId": 15,
+      "isActive": true,
+      "note": "",
+      "note2": "sample string 20",
+      "createdInfo": "09.01.2023 08:59",
+      "updatedInfo": "09.01.2023 08:59",
+      "deviceGeo": {
+        "location": "sample string 1",
+        "cityName": "sample string 2",
+        "townName": "sample string 3"
+      },
+      "mainFirmInfo": {
+        "firmQuota": 1,
+        "mainFirmName": "sample string 2",
+        "mainFirmQuota": 1
+      }
+    },
+    {
+      "id": 7,
+      "deviceTypeId": "2",
+      "mill": false,
+      "position": "Depoda",
+      "carboy": false,
+      "plastic": false,
+      "firmId": "",
+      "firmName": "LCW",
+      "ip": "3252315123",
+      "imei": "2134325",
+      "gsmNo": "54363547543",
+      "serialNo": "213523152",
+      "userPassword": "521352315",
+      "adminPassword": "23513215",
+      "quota": 0,
+      "counter": 0,
+      "connectionLevel": 1,
+      "settings": "",
+      "lastConnectionDate": "12.12.2022 09:16",
+      "deviceStatuId": 15,
+      "isActive": false,
+      "note": "",
+      "note2": "sample string 20",
+      "createdInfo": "09.01.2023 09:04",
+      "updatedInfo": "09.01.2023 09:04",
+      "deviceGeo": {
+        "location": "sample string 1",
+        "cityName": "sample string 2",
+        "townName": "sample string 3"
+      },
+      "mainFirmInfo": {
+        "firmQuota": 1,
+        "mainFirmName": "sample string 2",
+        "mainFirmQuota": 1
+      }
+    },
+    {
+      "id": 8,
+      "deviceTypeId": "3",
+      "mill": false,
+      "position": "Depoda",
+      "carboy": false,
+      "plastic": false,
+      "firmId": "",
+      "firmName": "Bayıner",
+      "ip": "2135325231",
+      "imei": "2134325",
+      "gsmNo": "23511235321",
+      "serialNo": "3253215213",
+      "userPassword": "23513215231",
+      "adminPassword": "23152315",
+      "quota": 0,
+      "counter": 0,
+      "connectionLevel": 1,
+      "settings": "",
+      "lastConnectionDate": "12.12.2022 09:16",
+      "deviceStatuId": 15,
+      "isActive": false,
+      "note": "",
+      "note2": "sample string 20",
+      "createdInfo": "09.01.2023 09:21",
+      "updatedInfo": "09.01.2023 09:21",
+      "deviceGeo": {
+        "location": "sample string 1",
+        "cityName": "sample string 2",
+        "townName": "sample string 3"
+      },
+      "mainFirmInfo": {
+        "firmQuota": 1,
+        "mainFirmName": "sample string 2",
+        "mainFirmQuota": 1
+      }
     }
   ]
 }

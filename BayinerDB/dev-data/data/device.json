@@ -1,0 +1,110 @@
+[
+  {
+    "deviceTypeId": "3",
+    "mill": true,
+    "carboy": true,
+    "plastic": true,
+    "firmId": 6,
+    "firmName": "LCW",
+    "ip": "1542314",
+    "imei": "2145435",
+    "gsmNo": "05454723253",
+    "serialNo": "43254325",
+    "userPassword": "1000",
+    "adminPassword": "1001",
+    "quota": 1468,
+    "counter": 1523,
+    "connectionLevel": 1,
+    "settings": "",
+    "lastConnectionDate": "12.12.2022 09:16",
+    "deviceStatuId": 17,
+    "isActive": false,
+    "note": "Bu cihazın ıstıcısı arızalı.",
+    "note2": "sample string 20",
+    "createdInfo": "12.12.2022 09:16",
+    "updatedInfo": "25.12.2022 09:16",
+    "deviceGeo": {
+      "location": "sample string 1",
+      "cityName": "sample string 2",
+      "townName": "sample string 3"
+    },
+    "mainFirmInfo": {
+      "mainFirmId": 1,
+      "firmQuota": 1,
+      "mainFirmName": "sample string 2",
+      "mainFirmQuota": 1
+    }
+  },
+  {
+    "deviceTypeId": 2,
+    "mill": true,
+    "carboy": true,
+    "plastic": true,
+    "firmId": 6,
+    "firmName": "Safaş",
+    "ip": "155",
+    "imei": "2145435",
+    "gsmNo": "05451723253",
+    "serialNo": "13254325",
+    "userPassword": "1000",
+    "adminPassword": "1001",
+    "quota": 1468,
+    "counter": 1523,
+    "connectionLevel": 1,
+    "settings": "",
+    "lastConnectionDate": "12.12.2022 09:16",
+    "deviceStatuId": 17,
+    "isActive": false,
+    "note": "sample string 19",
+    "note2": "sample string 20",
+    "createdInfo": "12.12.2022 09:16",
+    "updatedInfo": "23.12.2022 09:16",
+    "deviceGeo": {
+      "location": "sample string 1",
+      "cityName": "sample string 2",
+      "townName": "sample string 3"
+    },
+    "mainFirmInfo": {
+      "mainFirmId": 1,
+      "firmQuota": 1,
+      "mainFirmName": "sample string 2",
+      "mainFirmQuota": 1
+    }
+  },
+  {
+    "deviceTypeId": 1,
+    "mill": true,
+    "carboy": false,
+    "plastic": false,
+    "firmId": 6,
+    "firmName": "Mado",
+    "ip": "255",
+    "imei": "3145435",
+    "gsmNo": "05452723253",
+    "serialNo": "23254325",
+    "userPassword": "1000",
+    "adminPassword": "1001",
+    "quota": 1468,
+    "counter": 1523,
+    "connectionLevel": 1,
+    "settings": "",
+    "lastConnectionDate": "12.12.2022 09:16",
+    "deviceStatuId": 15,
+    "isActive": false,
+    "note": "sample string 19",
+    "note2": "sample string 20",
+    "createdInfo": "12.12.2022 09:16",
+    "updatedInfo": "21.12.2022 09:16",
+    "deviceGeo": {
+      "location": "sample string 1",
+      "cityName": "sample string 2",
+      "townName": "sample string 3"
+    },
+    "mainFirmInfo": {
+      "mainFirmId": 1,
+      "firmQuota": 1,
+      "mainFirmName": "sample string 2",
+      "mainFirmQuota": 1
+    }
+  }
+]

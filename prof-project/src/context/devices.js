@@ -33,9 +33,9 @@ function DevicesProvider({ children }) {
     setDevices(updatedDevices);
   };
 
-  const createDevice = async (device) => {
+  const createDevice = async (devices) => {
     const response = await axios.post("http://localhost:3005/devices", {
-      device,
+      devices,
     });
     const updatedDevices = [...devices, response.data];
     setDevices(updatedDevices);

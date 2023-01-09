@@ -1,4 +1,4 @@
-import { NavLink, Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { BiLogOut } from "react-icons/bi";
 import { BsGraphUp, BsCart2 } from "react-icons/bs";
 import { FaUserTie } from "react-icons/fa";
@@ -44,42 +44,48 @@ function Sidebar() {
       icon: <BsCart2 className={styleLinkIcon} />,
       label: "Siparişler",
       path: "/order",
-      roles: [1984, 2001, 5150],
+      roles: [1984, 2001],
     },
     {
       icon: <TbTruckDelivery className={styleLinkIcon} />,
       label: "Teslimat",
       path: "/delivery",
-      roles: [1984, 2001, 5150],
+      roles: [1984, 2001],
     },
     {
       icon: <RiHomeLine className={styleLinkIcon} />,
       label: "Depolar",
       path: "/store",
-      roles: [1984, 2001, 5150],
+      roles: [1984, 2001],
     },
     {
       icon: <MdChecklistRtl className={styleLinkIcon} />,
       label: "Stoklar",
       path: "/stock",
-      roles: [1984, 2001, 5150],
+      roles: [1984, 2001],
     },
     {
       icon: <TbReportMoney className={styleLinkIcon} />,
       label: "Faturalar",
       path: "/bill",
-      roles: [1984, 2001, 5150],
+      roles: [1984, 2001],
     },
     {
       icon: <FiUsers className={styleLinkIcon} />,
       label: "Kullanıcılar",
       path: "/users",
-      roles: [1984, 2001, 5150],
+      roles: [1984, 2001],
     },
     {
       icon: <TbReportSearch className={styleLinkIcon} />,
       label: "Raporlar",
       path: "/report",
+      roles: [1984, 2001],
+    },
+    {
+      icon: <BiLogOut className={styleLinkIcon} />,
+      label: "Log Out",
+      path: "/",
       roles: [1984, 2001, 5150],
     },
   ];
@@ -98,31 +104,37 @@ function Sidebar() {
           </div>
         </NavLink>
       );
+    return "";
   });
 
   return (
     <div className="top-0 left-0 fixed overflow-y-scroll flex mr-6">
       <div className="flex flex-col w-fit">
         <div className="flex 2xl:flex-row xl:flex-row flex-col p-4 items-center min-w bg-gradient-to-r from-slate-600 to-slate-700">
-          <div>
-            <img src={avatar} alt="Profile" className="2xl:w-16 w-12 " />
-          </div>
-          <div className="flex p-2">
+          <NavLink to={"/profile"}>
             <div>
-              <p className="2xl:flex xl:flex hidden text-base text-white">
-                Osman Talha Aydın
+              <img src={avatar} alt="Profile" className="2xl:w-20 w-16 " />
+            </div>
+          </NavLink>
+
+          <div className="flex flex-col justify-around p-3">
+            <div className="mb-2">
+              <p className="2xl:flex xl:flex hidden text-md text-white">
+                Muhammed Taha
               </p>
-              <p className="2xl:flex xl:flex hidden text-base text-white">
+              <p className="2xl:flex xl:flex hidden text-md text-white">
+                Bayındır
+              </p>
+            </div>
+            <div>
+              <p className="2xl:flex xl:flex hidden font-extrabold text-base text-white">
                 BAYINER
               </p>
-              <NavLink to={"/login"}>
-                <BiLogOut className="2xl:w-6 2xl:h-6 w-5 h-5 transition duration-500   text-white hover:text-slate-500" />
-              </NavLink>
             </div>
           </div>
         </div>
 
-        <div className="flex flex-col px-4 bg-slate-800 pt-6 h-screen text-white">
+        <div className="flex flex-col px-4 bg-slate-500 pt-6 h-screen text-white">
           {renderedLinks}
         </div>
       </div>

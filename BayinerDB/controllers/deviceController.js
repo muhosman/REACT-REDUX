@@ -1,92 +1,80 @@
-const fs = require('fs');
+const Device = require('./../models/deviceModel');
+const APIFeatures = require('../utils/apiFeatures');
+const catchAsync = require('../utils/catchAsync');
+const AppError = require('../utils/appError');
 
-const devices = JSON.parse(
-  fs.readFileSync(`${__dirname}/../dev-data/data/tours-simple.json`)
-);
+exports.getAllDevices = catchAsync(async (req, res, next) => {
+  const features = new APIFeatures(Device.find(), req.query)
+    .filter()
+    .sort()
+    .limitFields()
+    .paginate();
+  const devices = await features.query;
 
-exports.checkID = (req, res, next, val) => {
-  console.log(`Tour id is: ${val}`);
-
-  if (req.params.id * 1 > devices.length) {
-    return res.status(404).json({
-      status: 'fail',
-      message: 'Invalid ID'
-    });
-  }
-  next();
-};
-
-exports.checkBody = (req, res, next) => {
-  if (!req.body.name || !req.body.price) {
-    return res.status(400).json({
-      status: 'fail',
-      message: 'Missing name or price'
-    });
-  }
-  next();
-};
-
-exports.getAllDevices = (req, res) => {
-  console.log(req.requestTime);
-
+  console.log(devices);
+  // SEND RESPONSE
   res.status(200).json({
     status: 'success',
-    requestedAt: req.requestTime,
     results: devices.length,
     data: {
       devices
     }
   });
-};
+});
 
-exports.getDevice = (req, res) => {
-  console.log(req.params);
-  const id = req.params.id * 1;
+exports.getDevice = catchAsync(async (req, res, next) => {
+  const device = await Device.findById(req.params.id);
 
-  const tour = devices.find(el => el.id === id);
+  if (!device) {
+    return next(new AppError('No tour found with that ID', 404));
+  }
 
   res.status(200).json({
     status: 'success',
     data: {
-      tour
+      device
     }
   });
-};
+});
 
-exports.createDevice = (req, res) => {
-  // console.log(req.body);
+exports.createDevice = catchAsync(async (req, res, next) => {
+  const newDevice = await Device.create(req.body);
 
-  const newId = devices[devices.length - 1].id + 1;
-  const newTour = Object.assign({ id: newId }, req.body);
-
-  devices.push(newTour);
-
-  fs.writeFile(
-    `${__dirname}/dev-data/data/devices-simple.json`,
-    JSON.stringify(devices),
-    () => {
-      res.status(201).json({
-        status: 'success',
-        data: {
-          tour: newTour
-        }
-      });
+  res.status(201).json({
+    status: 'success',
+    data: {
+      device: newDevice
     }
-  );
-};
+  });
+});
 
-exports.updateDevice = (req, res) => {
+exports.updateDevice = catchAsync(async (req, res, next) => {
+  const device = await Device.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+    runValidators: true
+  });
+
+  if (!device) {
+    return next(new AppError('No tour found with that ID', 404));
+  }
+
   res.status(200).json({
     status: 'success',
     data: {
-      tour: '<Updated tour here...>'
+      device
     }
   });
-};
+});
 
-exports.deleteDevice = (req, res) => {
+exports.deleteDevice = catchAsync(async (req, res, next) => {
+  const device = await Device.findByIdAndDelete(req.params.id);
+
+  if (!device) {
+    return next(new AppError('No tour found with that ID', 404));
+  }
+
   res.status(204).json({
     status: 'success',
     data: null
   });
-};
+});

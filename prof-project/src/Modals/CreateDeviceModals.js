@@ -7,39 +7,85 @@ import { GiConfirmed, GiCancel } from "react-icons/gi";
 import useDevicesContext from "../hooks/use-device-context";
 
 function CreateDeviceModals({ devices, onClick }) {
+  function createRandomNumber(name) {
+    let total = 0;
+    for (let i = 0; i < name.length; i++) {
+      total += name.charCodeAt(i);
+    }
+    return total;
+  }
   const { createDevice } = useDevicesContext();
   const [input, setInput] = useState({
-    deviceType: "",
+    id: 0,
+    deviceTypeId: "",
+    mill: false,
+    position: "Depoda",
+    carboy: false,
+    plastic: false,
+    firmId: "",
     firmName: "",
     ip: "",
+    imei: "2134325",
+    gsmNo: "",
     serialNo: "",
     userPassword: "",
     adminPassword: "",
-    gsm: "",
-    explanation: "",
+    quota: 0,
+    counter: 0,
+    connectionLevel: 1,
+    settings: "",
+    lastConnectionDate: "12.12.2022 09:16",
+    deviceStatuId: 15,
     isActive: false,
+    note: "",
+    note2: "sample string 20",
+    createdInfo: "12.12.2022 09:16",
+    updatedInfo: "21.12.2022 09:16",
+    deviceGeo: {
+      location: "sample string 1",
+      cityName: "sample string 2",
+      townName: "sample string 3",
+    },
+    mainFirmInfo: {
+      firmQuota: 1,
+      mainFirmName: "sample string 2",
+      mainFirmQuota: 1,
+    },
   });
 
   const [showConfirmModal, setShowConfirmModal] = useState(false);
 
   const handleOpenModal = () => {
     if (
-      input.deviceType !== "" &&
+      input.deviceTypeId !== "" &&
       input.firmName !== "" &&
       input.ip.length >= 6 &&
       input.serialNo.length >= 6 &&
-      input.userPassword.length >= 8 &&
-      input.adminPassword.length >= 8 &&
-      input.gsm.length === 11
+      input.userPassword.length >= 5 &&
+      input.adminPassword.length >= 5 &&
+      input.gsmNo.length === 11
     ) {
       setShowConfirmModal(true);
     }
-    console.log(input.gsm);
     console.log(input);
   };
 
   const handleCloseModel = (bool) => {
     if (bool) {
+      const currentDate = new Date(Date.now());
+      const formattedDate = currentDate.toLocaleString("tr-TR", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+      });
+      const randomNumber =
+        Math.floor(Math.random() * createRandomNumber(input.firmName)) + 1;
+
+      input.createdInfo = formattedDate;
+      input.updatedInfo = formattedDate;
+
       createDevice(input);
       onClick();
     } else {
@@ -53,37 +99,23 @@ function CreateDeviceModals({ devices, onClick }) {
     { label: "3", value: "3" },
     { label: "4", value: "4" },
   ];
-  const firmNames = devices.map((device) => {
-    return { label: device.firmName, value: device.firmName };
-  });
+  const firmNames = [
+    { label: "Bayıner", value: "Bayıner" },
+    { label: "LCW", value: "LCW" },
+    { label: "Mado", value: "Mado" },
+    { label: "Safaş", value: "Safaş" },
+  ];
   const handleSelectFirmName = (option) => {
     setInput({
-      deviceType: input.deviceType,
+      ...input,
       firmName: option.value,
-      ip: input.ip,
-      serialNo: input.serialNo,
-      userPassword: input.userPassword,
-      adminPassword: input.adminPassword,
-      gsm: input.gsm,
-      explanation: input.explanation,
-      isActive: input.isActive,
     });
   };
   const handleSelectDevice = (option) => {
-    setInput({
-      deviceType: option.value,
-      firmName: input.firmName,
-      ip: input.ip,
-      serialNo: input.serialNo,
-      userPassword: input.userPassword,
-      adminPassword: input.adminPassword,
-      gsm: input.gsm,
-      explanation: input.explanation,
-      isActive: input.isActive,
-    });
+    setInput({ ...input, deviceTypeId: option.value });
   };
   return (
-    <div className="bg-gradient-to-r bg-white">
+    <div className="bg-white text-sm">
       <div
         className={` flex items-center justify-center absolute  ${
           showConfirmModal ? "flex" : "hidden"
@@ -92,7 +124,8 @@ function CreateDeviceModals({ devices, onClick }) {
         <div className=" flex flex-col gap-3 bg-slate-600  mx-auto w-fit p-1 rounded-xl ">
           <div className="bg-white rounded-xl p-4 flex flex-col items-center">
             <p className="mb-4">
-              "{input.deviceType}" tipindeki cihazı yüklemek istiyor musunuz?
+              "{input.serialNo}" seri nolu cihazı sisteme eklemek istiyor
+              musunuz?
             </p>
             <div className="flex gap-2">
               <button
@@ -133,8 +166,8 @@ function CreateDeviceModals({ devices, onClick }) {
               <Dropdown
                 options={deviceTypes}
                 value={{
-                  label: input.deviceType,
-                  value: input.deviceType,
+                  label: input.deviceTypeId,
+                  value: input.deviceTypeId,
                 }}
                 onChange={handleSelectDevice}
                 search={false}
@@ -166,23 +199,18 @@ function CreateDeviceModals({ devices, onClick }) {
                 onChange={(e) => {
                   var lowerCase = e.target.value;
                   setInput({
-                    deviceType: input.deviceType,
-                    firmName: input.firmName,
+                    ...input,
                     ip: lowerCase,
-                    serialNo: input.serialNo,
-                    userPassword: input.userPassword,
-                    adminPassword: input.adminPassword,
-                    gsm: input.gsm,
-                    explanation: input.explanation,
-                    isActive: input.isActive,
                   });
                 }}
               />
             </div>
             <div className="flex justify-center items-center">
-              <button className="flex gap-3">
+              <button className="flex animate-bounce ml-4 justify-center  gap-1 text-slate-800 hover:text-green-400 transition duration-500">
                 <AiOutlineWifi />
-                <p>Bağlan</p>
+                <div className="flex items-center">
+                  <p>Bağlan</p>
+                </div>
               </button>
             </div>
           </div>
@@ -202,15 +230,8 @@ function CreateDeviceModals({ devices, onClick }) {
               onChange={(e) => {
                 var lowerCase = e.target.value;
                 setInput({
-                  deviceType: input.deviceType,
-                  firmName: input.firmName,
-                  ip: input.ip,
+                  ...input,
                   serialNo: lowerCase,
-                  userPassword: input.userPassword,
-                  adminPassword: input.adminPassword,
-                  gsm: input.gsm,
-                  explanation: input.explanation,
-                  isActive: input.isActive,
                 });
               }}
             />
@@ -242,15 +263,8 @@ function CreateDeviceModals({ devices, onClick }) {
               onChange={(e) => {
                 var lowerCase = e.target.value;
                 setInput({
-                  deviceType: input.deviceType,
-                  firmName: input.firmName,
-                  ip: input.ip,
-                  serialNo: input.serialNo,
+                  ...input,
                   userPassword: lowerCase,
-                  adminPassword: input.adminPassword,
-                  gsm: input.gsm,
-                  explanation: input.explanation,
-                  isActive: input.isActive,
                 });
               }}
             />
@@ -264,15 +278,8 @@ function CreateDeviceModals({ devices, onClick }) {
               onChange={(e) => {
                 var lowerCase = e.target.value;
                 setInput({
-                  deviceType: input.deviceType,
-                  firmName: input.firmName,
-                  ip: input.ip,
-                  serialNo: input.serialNo,
-                  userPassword: input.userPassword,
+                  ...input,
                   adminPassword: lowerCase,
-                  gsm: input.gsm,
-                  explanation: input.explanation,
-                  isActive: input.isActive,
                 });
               }}
             />
@@ -291,15 +298,8 @@ function CreateDeviceModals({ devices, onClick }) {
               onChange={(e) => {
                 var lowerCase = e.target.value;
                 setInput({
-                  deviceType: input.deviceType,
-                  firmName: input.firmName,
-                  ip: input.ip,
-                  serialNo: input.serialNo,
-                  userPassword: input.userPassword,
-                  adminPassword: input.adminPassword,
-                  gsm: lowerCase,
-                  explanation: input.explanation,
-                  isActive: input.isActive,
+                  ...input,
+                  gsmNo: lowerCase,
                 });
               }}
             />
@@ -315,15 +315,8 @@ function CreateDeviceModals({ devices, onClick }) {
               onChange={(e) => {
                 var lowerCase = e.target.value;
                 setInput({
-                  deviceType: input.deviceType,
-                  firmName: input.firmName,
-                  ip: input.ip,
-                  serialNo: input.serialNo,
-                  userPassword: input.userPassword,
-                  adminPassword: input.adminPassword,
-                  gsm: input.gsm,
-                  explanation: lowerCase,
-                  isActive: input.isActive,
+                  ...input,
+                  note: lowerCase,
                 });
               }}
             />
@@ -337,14 +330,7 @@ function CreateDeviceModals({ devices, onClick }) {
                 checked={input.isActive}
                 onChange={() =>
                   setInput({
-                    deviceType: input.deviceType,
-                    firmName: input.firmName,
-                    ip: input.ip,
-                    serialNo: input.serialNo,
-                    userPassword: input.userPassword,
-                    adminPassword: input.adminPassword,
-                    gsm: input.gsm,
-                    explanation: input.explanation,
+                    ...input,
                     isActive: !input.isActive,
                   })
                 }
